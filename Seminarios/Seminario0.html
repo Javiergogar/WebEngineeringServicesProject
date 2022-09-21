@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Web page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-
+/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1 id="header">Header</h1>
+    <input id="headerValue" type="text" size="20">
+    <button onclick="newHeader()">New</button>
+    <script>
+        function newHeader() {
+            var val = $("#headerValue").val();
+            $("#header").html(val);
+            console.log('ok', val)
+        }
+    </script>
+</body>
+
+</html>
