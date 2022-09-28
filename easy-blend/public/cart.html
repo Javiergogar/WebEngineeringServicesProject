@@ -24,7 +24,9 @@
       <ul class="navbar-nav mb-2 mb-md-0">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" id="cartDropdown" data-bs-toggle="dropdown"
-            aria-expanded="false">Cart</a>
+            aria-expanded="false">Cart
+            <span class="badge badge-primary">0</span>
+          </a>
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" arialabelledby="cartDropdown">
             <li><a class="dropdown-item" href="#">View cart</a></li>
             <li><a class="dropdown-item" href="purchase.html">Purchase</a></li>
@@ -59,12 +61,12 @@
     </div>
   </header>
   <main>
-    
+
     <div class="container">
-    <h1>Shopping Cart</h1>
-    <p><strong>Total: €</strong>Total</p>
-    <h1>Items</h1>
-    <table class="table">
+      <h1>Shopping Cart</h1>
+      <p><strong>Total: €</strong>Total</p>
+      <h1>Items</h1>
+      <table class="table">
         <thead>
           <tr>
             <th scope="col">Qty</th>
@@ -81,7 +83,8 @@
             <td>10</td>
             <td>45</td>
             <td class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 Remove
               </button>
               <ul class="dropdown-menu">
@@ -94,8 +97,11 @@
       </table>
       <p><strong>Subtotal: € </strong>30</p>
       <p><strong>Tax: €</strong>6.3</p>
-      <p><strong>Total: €</strong>36.3</p>           
-      <td><button onclick="document.location='../index.html'" class="btn btn-primary">Purchase</button></td>          
+      
+      <div class="text-end">
+        <p><strong>Total: €</strong>36.3</p>
+        <td><button onclick="document.location='../index.html'" class="btn btn-primary">Purchase</button></td>
+      </div>
     </div>
   </main>
 
