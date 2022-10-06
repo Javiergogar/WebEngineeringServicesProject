@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/" </a>
+      <img src="./images/easy_blend.png" alt="Logo EasyBlend" style="width:100px;height:70px">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" arialabel="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+      <ul class="navbar-nav mb-2 mb-md-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" id="cartDropdown" data-bs-toggle="dropdown"
+            aria-expanded="false">Cart
+            {{#if user}}<span class="badge rounded-pill bg-secondary">2</span>{{/if}}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" arialabelledby="cartDropdown">
+            <li><a class="dropdown-item" href="/cart" onClick="navigateTo(event,event.target.href)">View cart</a></li>
+            <li><a class="dropdown-item" href="purchase.html">Purchase</a></li>
+          </ul>
+
+
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" id=“userDropdown" data-bs-toggle="dropdown"
+            aria-expanded="false">User</a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" arialabelledby=“userDropdown">
+            <li><a class="dropdown-item" href="signup.html">Sign up</a></li>
+            <li><a class="dropdown-item" href="signin.html">Sign in</a></li>
+            <li><a class="dropdown-item" href="profile.html">View profile</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>

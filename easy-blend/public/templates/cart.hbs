@@ -1,0 +1,48 @@
+{{> navbar}}
+{{> header}}
+  <main>
+
+    <div class="container">
+      <h1>Shopping Cart</h1>
+      <p><strong>Total: €</strong>Total</p>
+      <h1>Items</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Qty</th>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Blue Blender</td>
+            <td>10</td>
+            <td>45</td>
+            <td class="dropdown">
+              <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Remove
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">One</a></li>
+                <li><a class="dropdown-item" href="#">All</a></li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p><strong>Subtotal: € </strong>30</p>
+      <p><strong>Tax: €</strong>6.3</p>
+      
+      <div class="text-end">
+        <p><strong>Total: €</strong>36.3</p>
+        <td><button onclick="document.location='../index.html'" class="btn btn-primary">Purchase</button></td>
+      </div>
+    </div>
+  </main>
+
+{{> footer}}

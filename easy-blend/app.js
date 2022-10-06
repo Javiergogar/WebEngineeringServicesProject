@@ -12,11 +12,10 @@ app.use(logger('dev'));
 
 //Set public folder to publish static content
 app.use(express.static(path.join(__dirname , 'public')));
-// Adds the / route to the application
-app.get('/', function (req, res) {
-// Sends the Hello World string back to the client
-res.send('<p>Hello World!</p>');
-});
+// Set redirection to index.html 
+app.get(/\/.*/, function (req, res) { 
+    res.sendFile(path.join(__dirname, '/public/index.html')); 
+  });
 // Listen to port 3000
 app.listen(3000, function () {
 console.log('GameShop Web app listening on port 3000!');
