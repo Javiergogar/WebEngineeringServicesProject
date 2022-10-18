@@ -3,7 +3,7 @@ Model.products = [{
   _id: 1, 
   title: 'Super Mario 3D World and Bowser\'s Fury', 
   description: '…', 
-  url: 'img/1.jpg', 
+  url: 'images/blend_pieces.jpg', 
   price: 36.3, 
   tax: 9.66 
 }, { 
@@ -13,7 +13,16 @@ Model.products = [{
   url: 'img/2.jpg', 
   price: 36.33, 
   tax: 9.66 
-}]; 
+},
+{ 
+  _id: 3, 
+  title: 'Splatoon 3', 
+  description: '…', 
+  url: 'img/2.jpg', 
+  price: 36.33, 
+  tax: 9.66 
+}
+]; 
 Model.user = null; 
 Model.users = [{ 
   _id: 1, 

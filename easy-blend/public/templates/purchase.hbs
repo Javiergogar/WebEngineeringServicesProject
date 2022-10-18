@@ -1,0 +1,46 @@
+{{> navbar}}
+{{> header}}
+
+<main>
+
+    <div class="container">
+      <div class="row gy-4">
+        <h1>Purchase</h1>
+        <input type="date" class="form-control" placeholder="dd/mm/yyyy"> <!--Poner como un output-->
+
+        <input type="text" class="form-control" placeholder="Address">
+
+        <input type="number" class="form-control" placeholder="Card Number">
+
+        <input type="text" class="form-control" placeholder="Card Owner">
+
+        <h1>Items</h1>
+
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Qty</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Total</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Blue Blender</td>
+            <td>10</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><strong>Subtotal: € </strong>Subtotal</p>
+      <p><strong>Tax: €</strong>Tax</p>
+      <p><strong>Total: €</strong>Total</p>
+      <div class="text-end">
+        <td><button onclick="navigateTo(event, '/')" class="btn btn-primary">Checkout</button></td>
+      </div>
+    </div>
+  </main>
+
+{{> footer}}

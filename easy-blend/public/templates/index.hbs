@@ -11,11 +11,12 @@
             <p class="card-text">{{this.description}} </p>
             <div class="row justify-content-around">
               <p class="col-4" style="font-size: 25px;"> <b>{{formatPrice this.price}}</b> </p> 
-              <a class=" col-4 btn btn-primary" style="height: 50px; font-size: 20px;" href="order.html">Buy</a>
+              <a class=" col-4 btn btn-primary" style="height: 50px; font-size: 20px;" href="/order" onclick="navigateTo(event, event.target.href)">Buy</a>
             </div>
       </div>
+      </div>
       {{/each}}
-    </div>
+    
     </div>
   </main>
 {{> footer}}
