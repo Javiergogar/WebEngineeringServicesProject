@@ -1,23 +1,70 @@
 {{> navbar}}
 {{> header}}
 
+<script>
+
+  $(function() {
+  $('#signin-form').on('submit', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!this.checkValidity()) {
+      $(this).addClass('was-validated');
+      return false;
+    }
+    Model.signin($('#email').val(), $('#password').val()).done(function (user) {
+      navigateTo(e, '/');
+    }).fail(function (error) {
+      navigateTo(e, '/signin');
+    });
+  });
+  $('#signin-form input').on('blur', function(e) {
+    if (!this.checkValidity()) {
+      $(this).removeClass('is-valid').addClass('is-invalid');
+    }
+    else {
+      $(this).removeClass('is-invalid').addClass('is-valid');
+    }
+  });
+});
+
+  function signin_clicked(event) {
+    Model.signin($('#mail').val(), $('#pass').val());
+    if (Model.user) {
+      
+      navigateTo(event, '/');
+    }
+    else {
+      navigateTo(event, '/signin');
+
+    }
+  }
+</script>
+
 <main>
-    <div class="container text-center">
-      <h1 class='text-center'>Sign in</h1>
-      <div class="form-group row gy-4">
+  <div class="container text-center">
+    <h1 class='text-center'>Sign in</h1>
+    
+    <form id="signin-form" class="row gy-4 w-75 mx-auto needs-validation" novalidate>
 
-        <input type="email" class="form-control" placeholder="Enter email">
-        <input type="password" class="form-control" placeholder="Password">
-
-        <div class="text-end">
-          <button onclick="navigateTo(event, '/profile')" class="btn btn-primary">Sign in</button>
+        <div class="form-group">
+          <input id="mail" type="email" class="form-control" placeholder="Enter email" required="" autofocus="" >
+          <div class="invalid-feedback">The email field cannot be empty</div>
         </div>
-        
-      </div>
-      
-      
-    </div>
 
-  </main>
+        <div class="form-group">
+          <input id="pass" type="password" class="form-control" placeholder="Password" required="" >
+          <div class="invalid-feedback">The password field cannot be empty</div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button onclick="signin_clicked(event)" class="btn btn-primary">Sign in</button>
+        </div>
+
+    </form>
+
+
+  </div>
+
+</main>
 
 {{> footer}}

@@ -26,13 +26,30 @@ Model.products = [{
 Model.user = null; 
 Model.users = [{ 
   _id: 1, 
-  email: 'johndoe@example.com', 
-  password: '1234', 
-  name: 'John', 
-  surname: 'Doe', 
+  email: 'paco@mermela.org', 
+  password: 'lamparita22', 
+  name: 'Paco', 
+  surname: 'Mermela', 
   birthdate: new Date(1990, 1, 1), 
   address: '123 Main St, 12345 New York, USA', 
   cartItems: [], 
   orders: [] 
-  //SUUUUU
+  
 }];
+
+Model.signin = function (email, password) {
+  
+  Model.user = null;
+  for (var i = 0; i < Model.users.length; i++) {
+  if (Model.users[i].email == email && Model.users[i].password == password)
+  Model.user = Model.users[i];
+  }
+  }
+
+
+Model.signout = function(){
+
+  Model.user = null;
+  
+
+}
