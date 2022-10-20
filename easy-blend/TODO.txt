@@ -1,0 +1,55 @@
+10. Add cart functionality in the cart.hbs file:
+    (a) Disable cart if no user has signed in.
+    2
+    (b) If cart has no items, then show “No product items in the shopping
+    cart yet” instead of total, subtotal, tax and product item list. Otherwise, show the list of items.
+    (c) In index.hbs implement Buy functionality:
+    i. Disable the Buy button if no user has signed in. In this case,
+    use ../ to access parent content (see Practice 2 Tips).
+    ii. Show number of cart items in the navigation bar (navbar.hbs).
+    iii. Add 1 product to the shopping cart. Tip: pass product id to
+    Model.buy function.
+    A. If the product exists in the shopping cart, then add 1 to the
+    product item quantity (do not insert a new product item into
+    the cart).
+    B. If the product does not exist in the shopping cart, then add
+    a new product item in the shopping cart.
+    (d) In cart.hbs, develop Delete One and Delete All functionality.
+    Note that items cannot have 0 in qty. Therefore, when the qty
+    property is set to 0, the item must be deleted from the list.
+    (e) Remember to update item lists, cart badge, total amounts, etc.
+11. Add Purchase functionality in the purchase.hbs file:
+    (a) Disable the Purchase menu item if user has not signed in navbar.hbs.
+    (b) Show purchase form only if the shopping cart has items, or show “No
+    items in shopping cart” otherwise, in purchase.hbs.
+    (c) Validate card number, card owner and address fields to be required fields using feedback information (see Practice 2 Tips) in purchase.hbs.
+    (d) Add an order to the user orders collection defining the Model.purchase
+    function that returns an order. Remember to include number (generated using new Date().getTime(), for instance), date, address,
+    cardHolder, and cardNumber. Items from the shopping cart
+    should become order items and their price should be copied from
+    the product (see UML class diagram from Seminar 2).
+    (e) After adding the order to the user’s orders collection, navigate to
+    the order /order/id/order.number (this Web page is implemented
+    below).
+12. Add Order functionality in the order.hbs file:
+    (a) Show order contents according to the /order/id/order.number URL
+    path (e.g., /order/id/1603359246206) where 1603359246206 defines
+    the order number of the order to be displayed).
+    (b) Check after Purchase function to see an order.
+13. Add Profile functionality in the profile.hbs file:
+    (a) Disable Profile menu item in the navbar.hbs file if no user has signed
+    in.
+    (b) Show signed in user information.
+    3
+    i. Define a helper to format birth date as m/d/yyyy (e.g., 7/1/1977
+    for July 1st, 1977).
+    (c) Show user’s orders:
+    i. Format order date as m/d/yyyy (e.g., 7/1/1977 for July 1st,
+    1977).
+    ii. Show “No orders yet” if the user has not made any order instead
+    of the order table and heading.
+    iii. Check after Purchase function to see orders.
+    (d) Implement Details button to show order details. When pressed, it
+    should navigate to /order/id/order.number URL. Tip: Pass number to locate the order in the URL (see Practice 2 Tips).
+14. Add File not found functionality in not-found.hbs file (see Practice 2
+Tips).

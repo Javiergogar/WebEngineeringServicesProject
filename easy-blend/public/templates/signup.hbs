@@ -1,29 +1,81 @@
 {{> navbar}}
 {{> header}}
-
 <main>
-        <div class="container text-center">
-           <h1 class='text-center'>Sign Up</h1>
-                <div class="form-group row gy-4">
-                   <input type="text" class="form-control" placeholder="Name">
-                   
-                   <input type="text" class="form-control" placeholder="Surname">
-                   
-                   <input type="text" class="form-control" placeholder="Address">
-                  
-                   <input type="date" class="form-control" placeholder="dd/mm/yyyy">
-                 
-                   <input type="email" class="form-control" placeholder="Enter email">
-                  
-                   <input type="password" class="form-control" placeholder="Password">
-                  
-                   <input type="password" class="form-control" placeholder="Confirm Password">
-                   
-                   <div class="text-end">
-                   <button onclick="navigateTo(event, '/profile')" class="btn btn-primary">Sign Up</button>
-                  </div>
-               </div>
-           </div>
-     </main>
-
+    <div class="container text-center">
+        <h1 class="p-3 ">Sign up</h1>
+        <form id="signup-form" class="row gy-3 needs-validation" novalidate>
+            <div class="form-group">
+                <input type="text" id="name" class="form-control" placeholder="Name" required="" autofocus="" value="test">
+                <div class="invalid-feedback">The name field cannot be empty</div>
+            </div>
+            <div class="form-group">
+                <input type="text" id="surname" class="form-control" placeholder="Surname" required="" autofocus="" value="test">
+                <div class="invalid-feedback">The surname field cannot be empty</div>
+            </div>
+            <div class="form-group">
+                <input type="text" id="address" class="form-control" placeholder="Address" required="" autofocus="" value="test">
+                <div class="invalid-feedback">The address field cannot be empty</div>
+            </div>
+            <div class="form-group">
+                <input type="date" id="date" class="form-control" placeholder="Birth Date" required="" autofocus="" value="2001-02-13">
+                <div class="invalid-feedback">The birth Date field cannot be empty</div>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" class="form-control" placeholder="Email address" required=""
+                    autofocus="" value="test@test.com">
+                <div class="invalid-feedback">The email field cannot be empty</div>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" class="form-control" placeholder="Password" required=""
+                    autofocus="">
+                <div class="invalid-feedback">The password field cannot be empty</div>
+            </div>
+            <div class="form-group">
+                <input type="password" id="passwordc" class="form-control" placeholder="Confirm password" required=""
+                    autofocus="">
+                <div id="invalid-feedback1" class="invalid-feedback">The password field cannot be empty</div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-primary" onclick="signup_clicked(event)" role="button">Sign up</a>
+            </div>
+        </form>
+    </div>
+</main>
+<script>
+    function signup_clicked(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $('#signup-form').submit();
+    }
+    $(function () {
+        $('#signup-form').on('submit', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!this.checkValidity()) {
+                $(this).addClass('was-validated');
+                return false;
+            }
+            if ($('#password').val() == ($('#passwordc').val())) {
+                // i. If they match, navigate to /signin.
+                console.log('Passwords match');
+                Model.signup($('#name').val(), $('#surname').val(), $('#address').val(),
+                    $('#date').val(), $('#email').val(), $('#password').val());
+                navigateTo(e, '/signin');
+            } else {
+                // ii. If they do not match, invalidate the form.
+                $('#invalid-feedback1').text('Passwords do not match');
+                $('#passwordc').removeClass('is-valid').addClass('is-invalid');
+                console.log('Passwords do not match');
+            }
+        });
+        $('#signup-form input').on('blur', function (e) {
+            if (!this.checkValidity()) {
+                $(this).removeClass('is-valid').addClass('is-invalid');
+            }
+            else {
+                $(this).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+    });
+</script>
 {{> footer}}
