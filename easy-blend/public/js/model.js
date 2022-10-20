@@ -66,13 +66,19 @@ Model.products = [{
 Model.user = null; 
 Model.users = [{ 
   _id: 1, 
-  email: 'paco@mermela.org', 
-  password: 'lamparita22', 
-  name: 'Paco', 
-  surname: 'Mermela', 
+  email: 'test@gmail.com', 
+  password: 'test', 
+  name: 'Test', 
+  surname: 'iculos', 
   birthdate: new Date(1990, 1, 1), 
   address: '123 Main St, 12345 New York, USA', 
-  cartItems: [], 
+  cartItems: [{
+    qty: 2,
+    product: Model.products[0] 
+  },{
+    qty: 1,
+    product: Model.products[1] 
+  }], 
   orders: [] 
   
 }];

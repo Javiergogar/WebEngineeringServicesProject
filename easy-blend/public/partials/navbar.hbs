@@ -21,14 +21,14 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
       <ul class="navbar-nav mb-2 mb-md-0">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" id="cartDropdown" data-bs-toggle="dropdown"
+          {{#if user}}<a class="nav-link dropdown-toggle" href="#" role="button" id="cartDropdown" data-bs-toggle="dropdown"
             aria-expanded="false">Cart
             {{#if user}}<span class="badge rounded-pill bg-secondary">2</span>{{/if}}
           </a>
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" arialabelledby="cartDropdown">
             <li><a class="dropdown-item" href="/cart" onClick="navigateTo(event,event.target.href)">View cart</a></li>
             <li><a class="dropdown-item" href="/purchase" onClick="navigateTo(event,event.target.href)">Purchase</a></li>
-          </ul>
+          </ul>{{/if}}
 
 
         </li>
@@ -38,7 +38,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" arialabelledby="userDropdown">
             <li>{{#unless user}}<a class="dropdown-item" href="/signup" onClick="navigateTo(event,event.target.href)">Sign up</a>{{/unless}}</li>
             <li>{{#unless user}}<a class="dropdown-item" href="/signin" onClick="navigateTo(event,event.target.href)">Sign in</a>{{/unless}}</li>
-            <li><a class="dropdown-item" href="/profile" onClick="navigateTo(event,event.target.href)">View profile</a></li>
+            <li>{{#if user}}<a class="dropdown-item" href="/profile" onClick="navigateTo(event,event.target.href)">View profile</a>{{/if}}</li>
             <li>
               <hr class="dropdown-divider">
             </li>

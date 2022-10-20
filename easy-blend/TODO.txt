@@ -1,8 +1,4 @@
 10. Add cart functionality in the cart.hbs file:
-    (a) Disable cart if no user has signed in.
-    2
-    (b) If cart has no items, then show “No product items in the shopping
-    cart yet” instead of total, subtotal, tax and product item list. Otherwise, show the list of items.
     (c) In index.hbs implement Buy functionality:
     i. Disable the Buy button if no user has signed in. In this case,
     use ../ to access parent content (see Practice 2 Tips).

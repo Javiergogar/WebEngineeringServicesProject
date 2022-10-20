@@ -42,6 +42,38 @@ function render(url, container, context) {
         var result = (Math.round(price * 100) / 100).toFixed(2) + ' €'; 
         return new Handlebars.SafeString(result); 
       });
+      Handlebars.registerHelper('totalCartItem', function (qty,price) { 
+        var result = qty * price; 
+        return new Handlebars.SafeString(result); 
+      });
+      Handlebars.registerHelper('subtotalCartItem', function () {
+        var result=0
+
+        for (var i = 0; i < Model.user.cartItems.length; i++) {
+        result= result + (Model.user.cartItems[i].qty * Model.user.cartItems[i].product.price)  
+        }
+         
+        return new Handlebars.SafeString(result); 
+      });
+      Handlebars.registerHelper('taxesCartItem', function () {
+        var result=0
+        
+        for (var i = 0; i < Model.user.cartItems.length; i++) {
+        result= result + (Model.user.cartItems[i].qty * Model.user.cartItems[i].product.tax)  
+        }
+         
+        return new Handlebars.SafeString(result); 
+      });
+      Handlebars.registerHelper('totalCart', function () { 
+        var result=0
+        
+        for (var i = 0; i < Model.user.cartItems.length; i++) {
+        result= result + (Model.user.cartItems[i].qty * Model.user.cartItems[i].product.tax) + (Model.user.cartItems[i].qty * Model.user.cartItems[i].product.price) 
+        }
+         
+        return new Handlebars.SafeString(result); 
+      });
+      
       window.addEventListener('popstate', (event) => route(), false); 
     $.when(loadPartial('/partials/navbar.hbs', 'navbar'), 
      loadPartial('/partials/header.hbs', 'header'), 

@@ -7,9 +7,10 @@
 
     <div class="container">
       <h1>Shopping Cart</h1>
-      <p><strong>Total: €</strong>Total</p>
-      <h1>Items</h1>
-      <table class="table">
+      
+      {{#unless user.cartItems}}<p>No product items in the shopping cart yet</p>{{/unless}}
+       {{#if user.cartItems}}<table class="table">
+        
         <thead>
           <tr>
             <th scope="col">Qty</th>
@@ -19,12 +20,16 @@
             <th scope="col"></th>
           </tr>
         </thead>
+       
         <tbody>
+          {{#each user.cartItems}}
           <tr>
-            <td>1</td>
-            <td>Blue Blender</td>
-            <td>10</td>
-            <td>40</td>
+             
+            <td>{{this.qty}}</td>
+            <td>{{this.product.title}}</td>
+            <td>{{this.product.price}}</td>
+            <td>{{totalCartItem this.qty this.product.price}}</td>
+            
             <td class="dropdown">
               <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
@@ -36,16 +41,19 @@
               </ul>
             </td>
           </tr>
+          {{/each}}
         </tbody>
       </table>
-      <p><strong>Subtotal: € </strong>30</p>
-      <p><strong>Tax: €</strong>6.3</p>
+      
+      <p id="subt"><strong>Subtotal: </strong>{{subtotalCartItem}}</p>
+      <p id="taxt"><strong>Tax: </strong>{{taxesCartItem}}</p>
       
       <div class="text-end">
-        <p><strong>Total: €</strong>36.3</p>
+        <p><strong>Total: </strong>{{totalCart}}</p>
         <td><button onclick="navigateTo(event, '/')" class="btn btn-primary">Purchase</button></td>
       </div>
-    </div>
+    </div>{{/if}}
+    
   </main>
 
 {{> footer}}
