@@ -1,19 +1,4 @@
-10. Add cart functionality in the cart.hbs file:
-    (c) In index.hbs implement Buy functionality:
-    i. Disable the Buy button if no user has signed in. In this case,
-    use ../ to access parent content (see Practice 2 Tips).
-    ii. Show number of cart items in the navigation bar (navbar.hbs).
-    iii. Add 1 product to the shopping cart. Tip: pass product id to
-    Model.buy function.
-    A. If the product exists in the shopping cart, then add 1 to the
-    product item quantity (do not insert a new product item into
-    the cart).
-    B. If the product does not exist in the shopping cart, then add
-    a new product item in the shopping cart.
-    (d) In cart.hbs, develop Delete One and Delete All functionality.
-    Note that items cannot have 0 in qty. Therefore, when the qty
-    property is set to 0, the item must be deleted from the list.
-    (e) Remember to update item lists, cart badge, total amounts, etc.
+
 11. Add Purchase functionality in the purchase.hbs file:
     (a) Disable the Purchase menu item if user has not signed in navbar.hbs.
     (b) Show purchase form only if the shopping cart has items, or show “No
