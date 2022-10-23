@@ -198,3 +198,8 @@ Model.removeAll = function (productId) {
     }
   }
 }
+
+Model.checkout = function(cardNumber, cardOwner,address){
+  
+
+}

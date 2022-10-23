@@ -1,8 +1,5 @@
 
 11. Add Purchase functionality in the purchase.hbs file:
-    (a) Disable the Purchase menu item if user has not signed in navbar.hbs.
-    (b) Show purchase form only if the shopping cart has items, or show “No
-    items in shopping cart” otherwise, in purchase.hbs.
     (c) Validate card number, card owner and address fields to be required fields using feedback information (see Practice 2 Tips) in purchase.hbs.
     (d) Add an order to the user orders collection defining the Model.purchase
     function that returns an order. Remember to include number (generated using new Date().getTime(), for instance), date, address,
