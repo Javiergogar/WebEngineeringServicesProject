@@ -73,6 +73,15 @@ function render(url, container, context) {
          
         return new Handlebars.SafeString(result); 
       });
+      Handlebars.registerHelper('navCartItem', function () { 
+        var result=0
+        
+        for (var i = 0; i < Model.user.cartItems.length; i++) {
+        }
+        result=i;
+         
+        return new Handlebars.SafeString(result); 
+      });
       
       window.addEventListener('popstate', (event) => route(), false); 
     $.when(loadPartial('/partials/navbar.hbs', 'navbar'), 
