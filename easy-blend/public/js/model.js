@@ -69,7 +69,7 @@ Model.users = [{
   email: 'test@gmail.com',
   password: 'test',
   name: 'Test',
-  surname: 'iculos',
+  surname: 'test',
   birthdate: new Date(1990, 1, 1),
   address: '123 Main St, 12345 New York, USA',
   cartItems: [{
@@ -83,7 +83,47 @@ Model.users = [{
 
 }];
 
+Model.orders = [{
+  number: 1266415938008,
+  date: 'fecha ejemplo',
+  address: 'calle13',
+  cardHolder: 'Test',
+  cardNumber: 'numero ejemplo',
+  orderItems: [{
+    qty: 1,
+    price: 24,
+    tax: 3,
+    product: Model.products[0]
+  }, {
+    qty: 1,
+    price: 24,
+    tax: 3,
+    product: Model.products[1]
+  }]
+},{
+  number: 1266415938009,
+  date: 'fecha ejemplo',
+  address: 'calle13',
+  cardHolder: 'Test',
+  cardNumber: 'numero ejemplo',
+  orderItems: [{
+    qty: 1,
+    price: 24,
+    tax: 3,
+    product: Model.products[0]
+  }, {
+    qty: 2,
+    price: 24,
+    tax: 3,
+    product: Model.products[1]
+  }]
+}
+]
+
+
+
 Model._userCount = Model.users.length;
+Model._orderCount = Model.orders.length;
 
 Model.signin = function (email, password) {
 
@@ -166,7 +206,7 @@ Model.buy = function (productId) {
 
 Model.removeOne = function (productId) {
 
-  
+
   //console.log("Pulsado boton de remove One")
   for (var i = 0; i < Model.user.cartItems.length; i++) {
     //console.log(Model.user.cartItems[i].product._id)
@@ -177,7 +217,7 @@ Model.removeOne = function (productId) {
       //console.log(Model.user.cartItems[i].qty)
       if (Model.user.cartItems[i].qty <= 1) {
         //console.log("Solo queda uno, borrando todo")
-        Model.user.cartItems.splice(i,1);
+        Model.user.cartItems.splice(i, 1);
       }
       else {
         //console.log("Borrando uno")
@@ -194,12 +234,50 @@ Model.removeOne = function (productId) {
 Model.removeAll = function (productId) {
   for (var i = 0; i < Model.user.cartItems.length; i++) {
     if (Model.user.cartItems[i].product._id == productId) {
-        Model.user.cartItems.splice(i,1);
+      Model.user.cartItems.splice(i, 1);
     }
   }
 }
 
-Model.checkout = function(cardNumber, cardOwner,address){
+Model.purchase = function (cardNumber, cardOwner, address) {
+
+  dateAux = new Date();
+  cartItemsAux = [];
+  numberAux = Date.now();
   
+  
+
+  for(i=0;i<Model.user.cartItems.length;i++){
+    priceaux= Model.user.cartItems[i].product.price;
+    taxaux= Model.user.cartItems[i].product.tax;
+
+    cartItemAux ={
+      qty: Model.user.cartItems[i].qty,
+      price: priceaux,
+      tax: taxaux,
+      product: Model.user.cartItems[i].product
+    }
+
+    cartItemsAux.push(cartItemAux);
+
+  }
+
+  order = {
+    number: numberAux,
+    date: dateAux,
+    address: address,
+    cardHolder: cardOwner,
+    cardNumber: cardNumber,
+    orderItems: [cartItemsAux]
+  }
+
+  Model.user.orders.push(order)
+
+  numCI=Model.user.cartItems.length;
+  for(i=0;i<numCI;i++){
+    Model.user.cartItems.pop();
+  }
+
+  return order
 
 }

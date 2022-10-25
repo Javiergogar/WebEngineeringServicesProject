@@ -82,6 +82,29 @@ function render(url, container, context) {
          
         return new Handlebars.SafeString(result); 
       });
+      Handlebars.registerHelper('purchaseDate', function () { 
+        var result
+        
+        
+
+        let date = new Date();
+        let dd = String(date.getDate()).padStart(2, '0');
+        let mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = date.getFullYear();
+        result= mm+"/"+dd+"/"+yyyy;
+         
+        return new Handlebars.SafeString(result); 
+      });
+      Handlebars.registerHelper('formatDate', function (date) { 
+        var result
+    
+        let dd = String(date.getDate()).padStart(2, '0');
+        let mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = date.getFullYear();
+        result= mm+"/"+dd+"/"+yyyy;
+         
+        return new Handlebars.SafeString(result); 
+      });
       
       window.addEventListener('popstate', (event) => route(), false); 
     $.when(loadPartial('/partials/navbar.hbs', 'navbar'), 

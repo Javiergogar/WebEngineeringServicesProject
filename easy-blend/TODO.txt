@@ -1,11 +1,5 @@
 
-11. Add Purchase functionality in the purchase.hbs file:
-    (c) Validate card number, card owner and address fields to be required fields using feedback information (see Practice 2 Tips) in purchase.hbs.
-    (d) Add an order to the user orders collection defining the Model.purchase
-    function that returns an order. Remember to include number (generated using new Date().getTime(), for instance), date, address,
-    cardHolder, and cardNumber. Items from the shopping cart
-    should become order items and their price should be copied from
-    the product (see UML class diagram from Seminar 2).
+
     (e) After adding the order to the user’s orders collection, navigate to
     the order /order/id/order.number (this Web page is implemented
     below).
@@ -15,12 +9,6 @@
     the order number of the order to be displayed).
     (b) Check after Purchase function to see an order.
 13. Add Profile functionality in the profile.hbs file:
-    (a) Disable Profile menu item in the navbar.hbs file if no user has signed
-    in.
-    (b) Show signed in user information.
-    3
-    i. Define a helper to format birth date as m/d/yyyy (e.g., 7/1/1977
-    for July 1st, 1977).
     (c) Show user’s orders:
     i. Format order date as m/d/yyyy (e.g., 7/1/1977 for July 1st,
     1977).
@@ -31,3 +19,6 @@
     should navigate to /order/id/order.number URL. Tip: Pass number to locate the order in the URL (see Practice 2 Tips).
 14. Add File not found functionality in not-found.hbs file (see Practice 2
 Tips).
+
+
+Falta todo lo de order, inluyendo como las mostramos en el perfil y desde el purchase que refirija

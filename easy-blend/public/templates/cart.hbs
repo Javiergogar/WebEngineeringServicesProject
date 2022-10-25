@@ -60,12 +60,12 @@
         </tbody>
       </table>
       
-      <p id="subt"><strong>Subtotal: </strong>{{subtotalCartItem}}</p>
-      <p id="taxt"><strong>Tax: </strong>{{taxesCartItem}}</p>
+      <p id="subt"><strong>Subtotal: </strong>{{subtotalCartItem}}€</p>
+      <p id="taxt"><strong>Tax: </strong>{{taxesCartItem}}€</p>
       
       <div class="text-end">
         <p><strong>Total: </strong>{{totalCart}}</p>
-        <td><button onclick="navigateTo(event, '/')" class="btn btn-primary">Purchase</button></td>
+        <td><button onclick="navigateTo(event, '/purchase')" class="btn btn-primary">Purchase</button></td>
       </div>
     </div>{{/if}}
     

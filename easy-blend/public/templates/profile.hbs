@@ -5,12 +5,14 @@
     
     <div class="container">
     <h1>Profile</h1>
-    <p><strong>Name: </strong>Zacarías</p>
-    <p><strong>Surname: </strong>Lorenzo</p>
-    <p><strong>Birth: </strong>12/12/01</p>
-    <p><strong>Address: </strong>Calle13</p>
-    <p><strong>Email: </strong>lamparita22@gmail.com</p>
+    <p><strong>Name: </strong>{{user.name}}</p>
+    <p><strong>Surname: </strong>{{user.surname}}</p>
+    <p><strong>Birth: </strong>{{formatDate user.birthdate}}</p>
+    <p><strong>Address: </strong>{{user.address}}</p>
+    <p><strong>Email: </strong>{{user.email}}</p>
     <h1>Order List</h1>
+    {{#unless user.orders}}<p>No orders yet</p>{{/unless}}
+    {{#if user.orders}}
     <table class="table">
         <thead>
           <tr>
@@ -21,15 +23,17 @@
           </tr>
         </thead>
         <tbody>
+          {{#each user.orders}}
           <tr>
-            <td>12/12/22</td>
-            <td>2</td>
-            <td>193€</td>
+            <td>{{formatDate this.date}}</td>
+            <td>{{this.number}}</td>
+            <td>{{totalCartItem this.qty this.product.price}}</td>
             <td><button onclick="navigateTo(event, '/order')" class="btn btn-primary">Details</button></td>
           </tr>
-          
+         {{/each}} 
         </tbody>
       </table>
+      {{/if}}
     </div>
    
   </main>
