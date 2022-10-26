@@ -15,17 +15,22 @@ function render(url, container, context) {
     history.pushState(null, '', url); 
     route(); 
   }
-  function route() { 
-    var path = location.pathname; 
-    var matches = null; 
-    console.log('ROUTING ', path); 
-    if (matches = path.match(/^\/$/)) 
-      render('/templates/index.hbs', '#content', Model); 
-    else if (matches = path.match(/^\/([^\/]*)\/?$/)) 
-      render('/templates/' + matches[1] + '.hbs', '#content', Model); 
-    else 
-      console.error('ROUTING ', path); 
-  }
+  function route() {
+    var path = location.pathname;
+    var matches = null;
+    console.log('ROUTING ', path);
+    if (matches = path.match(/^\/$/))
+      render('/templates/index.hbs', '#content', Model);
+    else if (matches = path.match(/^\/order\/id\/([^\/]*)\/?$/)) {
+      var order = Model.getOrder(matches[1]);
+      if (order)
+        render('/templates/order.hbs', '#content', { user: Model.user, order });
+      else
+        render('/templates/not-found.hbs', '#content', Model);
+    }
+    else if (matches = path.match(/^\/([^\/]*)\/?$/))
+        render('/templates/' + matches[1] + '.hbs', '#content', Model);
+ }
   function loadPartial(url, partial) { 
     return $.ajax({ 
       url: url, 

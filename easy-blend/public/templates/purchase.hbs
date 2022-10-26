@@ -16,17 +16,17 @@
       </div>
 
       <div class="form-group">
-      <input id="address" type="text" class="form-control" placeholder="Address">
+      <input id="address" type="text" class="form-control" placeholder="Address" required="">
       <div class="invalid-feedback">The address field cannot be empty</div>
       </div>
 
       <div class="form-group">
-      <input id="cardNumber" type="text" class="form-control" placeholder="Card Number">
+      <input id="cardNumber" type="text" class="form-control" placeholder="Card Number" required="">
       <div class="invalid-feedback">The card number field cannot be empty</div>
       </div>
 
       <div class="form-group">
-      <input id="cardOwner" type="text" class="form-control" placeholder="Card Owner">
+      <input id="cardOwner" type="text" class="form-control" placeholder="Card Owner" required="">
       <div class="invalid-feedback">The card owner field cannot be empty</div>
       </div>
 
@@ -70,7 +70,7 @@
     e.preventDefault();
     e.stopPropagation();
     $('#purchase-form').submit();
-    navigateTo(e, '/profile')
+    
   }
 
   $(function () {
@@ -82,7 +82,8 @@
         return false;
       }
       
-      Model.purchase($('#cardNumber').val(), $('#cardOwner').val(), $('#address').val());
+      order=Model.purchase($('#cardNumber').val(), $('#cardOwner').val(), $('#address').val());
+      navigateTo(e, '/order/id/'+order.number);
       //navigateTo(e, '/signin');
 
     });

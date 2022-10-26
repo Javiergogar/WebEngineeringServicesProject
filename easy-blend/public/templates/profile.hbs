@@ -28,7 +28,7 @@
             <td>{{formatDate this.date}}</td>
             <td>{{this.number}}</td>
             <td>{{totalCartItem this.qty this.product.price}}</td>
-            <td><button onclick="navigateTo(event, '/order')" class="btn btn-primary">Details</button></td>
+            <td><button onclick="navigateTo(event, '/order/id/{{this.number}}')" class="btn btn-primary">Details</button></td>
           </tr>
          {{/each}} 
         </tbody>
