@@ -23,6 +23,7 @@ function render(url, container, context) {
       render('/templates/index.hbs', '#content', Model);
     else if (matches = path.match(/^\/order\/id\/([^\/]*)\/?$/)) {
       var order = Model.getOrder(matches[1]);
+      console.log(order)
       if (order)
         render('/templates/order.hbs', '#content', { user: Model.user, order });
       else
@@ -58,6 +59,20 @@ function render(url, container, context) {
         result= result + (Model.user.cartItems[i].qty * Model.user.cartItems[i].product.price)  
         }
          
+        return new Handlebars.SafeString(result); 
+      });
+      Handlebars.registerHelper('subtotalOrderItem', function (qty,price) {
+        var result=qty*price
+
+        return new Handlebars.SafeString(result); 
+      });
+      Handlebars.registerHelper('subtotalOrder', function (orderItems) {
+        var result=0
+
+        for(i=0;i<orderItems.length;i++){
+          result=result + (orderItems[i].qty * orderItems[i].price)
+        }
+
         return new Handlebars.SafeString(result); 
       });
       Handlebars.registerHelper('taxesCartItem', function () {

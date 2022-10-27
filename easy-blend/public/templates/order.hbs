@@ -5,11 +5,11 @@
 <main>
         <div class="container">
             <h1>Order Number</h1>
-            <p><strong>Number: </strong>2</p>
-            <p><strong>Address: </strong>Calle13</p>
-            <p><strong>Date: </strong>12/12/22</p>
-            <p><strong>Card Number: </strong>18974562357894125935</p>
-            <p><strong>Card Holder: </strong>Zacarías Lorenzo</p>
+            <p><strong>Number: </strong>{{order.number}}</p>
+            <p><strong>Address: </strong>{{order.address}}</p>
+            <p><strong>Date: </strong>{{order.date}}</p>
+            <p><strong>Card Number: </strong>{{order.cardNumber}}</p>
+            <p><strong>Card Holder: </strong>{{order.cardHolder}}</p>
             <h1>Order List</h1>
             <table class="table">
                 <thead>
@@ -21,17 +21,20 @@
 
                     </tr>
                 </thead>
+                
                 <tbody>
+                    {{#each order.orderItems}}
                     <tr>
-                        <td>2</td>
-                        <td>Blue Blender</td>
-                        <td>80</td>
-                        <td>160</td>
+                        <td>{{qty}}</td>
+                        <td>{{product.title}}</td>
+                        <td>{{price}}</td>
+                        <td>{{subtotalOrderItem qty price}}</td>
                     </tr>
-
+                    {{/each}}
                 </tbody>
+                
             </table>
-            <p><strong>Subtotal: </strong>160</p>
+            <p><strong>Subtotal: </strong>{{subtotalOrder order.orderItems}}</p>
             <p><strong>Tax: </strong>21%</p>
             <p><strong>Total: </strong>193$</p>
         </div>

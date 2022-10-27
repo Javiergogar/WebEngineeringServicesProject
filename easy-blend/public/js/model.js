@@ -244,23 +244,6 @@ Model.purchase = function (cardNumber, cardOwner, address) {
   dateAux = new Date();
   cartItemsAux = [];
   numberAux = Date.now();
-  
-  
-
-  for(i=0;i<Model.user.cartItems.length;i++){
-    priceaux= Model.user.cartItems[i].product.price;
-    taxaux= Model.user.cartItems[i].product.tax;
-
-    cartItemAux ={
-      qty: Model.user.cartItems[i].qty,
-      price: priceaux,
-      tax: taxaux,
-      product: Model.user.cartItems[i].product
-    }
-
-    cartItemsAux.push(cartItemAux);
-
-  }
 
   order = {
     number: numberAux,
@@ -268,8 +251,27 @@ Model.purchase = function (cardNumber, cardOwner, address) {
     address: address,
     cardHolder: cardOwner,
     cardNumber: cardNumber,
-    orderItems: [cartItemsAux]
+    orderItems: []
+  
   }
+  
+  
+
+  for(i=0;i<Model.user.cartItems.length;i++){
+    priceaux= Model.user.cartItems[i].product.price;
+    taxaux= Model.user.cartItems[i].product.tax;
+
+
+
+    order.orderItems.push({
+      qty: Model.user.cartItems[i].qty,
+      price: priceaux,
+      tax: taxaux,
+      product: Model.user.cartItems[i].product
+    });
+
+  }
+
 
   Model.user.orders.push(order)
 
@@ -284,7 +286,7 @@ Model.purchase = function (cardNumber, cardOwner, address) {
 
 Model.getOrder = function (number){
   for (i = 0; i < Model.user.orders.length; i++){
-      console.log(Model.user.orders[i]);
+      //console.log(Model.user.orders[i]);
       if (Model.user.orders[i].number == number){
           return Model.user.orders[i];
       }
