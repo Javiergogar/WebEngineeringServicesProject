@@ -18,6 +18,7 @@ function render(url, container, context) {
   function route() {
     var path = location.pathname;
     var matches = null;
+    var templates = ['signin', 'cart', 'order', 'profile', 'signup','index','purchase'];
     console.log('ROUTING ', path);
     if (matches = path.match(/^\/$/))
       render('/templates/index.hbs', '#content', Model);
@@ -29,9 +30,16 @@ function render(url, container, context) {
       else
         render('/templates/not-found.hbs', '#content', Model);
     }
-    else if (matches = path.match(/^\/([^\/]*)\/?$/))
-        render('/templates/' + matches[1] + '.hbs', '#content', Model);
- }
+    //else if (matches = path.match(/^\/([^\/]*)\/?$/))
+    //    render('/templates/' + matches[1] + '.hbs', '#content', Model);
+    else if ((matches = path.match(/^\/([^\/]*)\/?$/)) && templates.includes(matches[1])) {
+      render('/templates/' + matches[1] + '.hbs', '#content', Model);
+  }
+  else {
+      render('/templates/not-found.hbs', '#content', Model);
+  }
+}
+    
   function loadPartial(url, partial) { 
     return $.ajax({ 
       url: url, 

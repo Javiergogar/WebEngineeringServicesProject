@@ -293,13 +293,16 @@ Model.purchase = function (cardNumber, cardOwner, address) {
 }
 
 Model.getOrder = function (number) {
-  for (i = 0; i < Model.user.orders.length; i++) {
-    //console.log(Model.user.orders[i]);
-    if (Model.user.orders[i].number == number) {
-      return Model.user.orders[i];
+  if (Model.user) {
+    for (i = 0; i < Model.user.orders.length; i++) {
+      //console.log(Model.user.orders[i]);
+      if (Model.user.orders[i].number == number) {
+        return Model.user.orders[i];
+      }
     }
-    else return false;
   }
+  else return false;
 }
+
 
 
