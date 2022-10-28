@@ -75,6 +75,24 @@ function render(url, container, context) {
 
         return new Handlebars.SafeString(result); 
       });
+      Handlebars.registerHelper('taxOrder', function (orderItems) {
+        var result=0
+
+        for(i=0;i<orderItems.length;i++){
+          result=result + (orderItems[i].qty * orderItems[i].tax)
+        }
+
+        return new Handlebars.SafeString(result); 
+      });
+      Handlebars.registerHelper('totalOrder', function (orderItems) {
+        var result=0
+
+        for(i=0;i<orderItems.length;i++){
+          result= result + (orderItems[i].qty * orderItems[i].tax) + (orderItems[i].qty * orderItems[i].price);
+        }
+
+        return new Handlebars.SafeString(result); 
+      });
       Handlebars.registerHelper('taxesCartItem', function () {
         var result=0
         
@@ -90,6 +108,7 @@ function render(url, container, context) {
         for (var i = 0; i < Model.user.cartItems.length; i++) {
         result= result + (Model.user.cartItems[i].qty * Model.user.cartItems[i].product.tax) + (Model.user.cartItems[i].qty * Model.user.cartItems[i].product.price) 
         }
+        var result = (Math.round(result * 100) / 100).toFixed(2) + ' €';
          
         return new Handlebars.SafeString(result); 
       });

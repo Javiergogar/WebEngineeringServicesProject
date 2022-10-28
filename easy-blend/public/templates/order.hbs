@@ -7,7 +7,7 @@
             <h1>Order Number</h1>
             <p><strong>Number: </strong>{{order.number}}</p>
             <p><strong>Address: </strong>{{order.address}}</p>
-            <p><strong>Date: </strong>{{order.date}}</p>
+            <p><strong>Date: </strong>{{formatDate order.date}}</p>
             <p><strong>Card Number: </strong>{{order.cardNumber}}</p>
             <p><strong>Card Holder: </strong>{{order.cardHolder}}</p>
             <h1>Order List</h1>
@@ -34,9 +34,9 @@
                 </tbody>
                 
             </table>
-            <p><strong>Subtotal: </strong>{{subtotalOrder order.orderItems}}</p>
-            <p><strong>Tax: </strong>21%</p>
-            <p><strong>Total: </strong>193$</p>
+            <p id="subTotal"><strong>Subtotal: </strong>{{subtotalOrder order.orderItems}}</p>
+            <p id="tax"><strong>Tax: </strong>{{taxOrder order.orderItems}}</p>
+            <p><strong>Total: </strong>{{totalOrder order.orderItems}}</p>
         </div>
 
 

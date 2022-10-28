@@ -1,24 +1,3 @@
 
-
-    (e) After adding the order to the user’s orders collection, navigate to
-    the order /order/id/order.number (this Web page is implemented
-    below).
-12. Add Order functionality in the order.hbs file:
-    (a) Show order contents according to the /order/id/order.number URL
-    path (e.g., /order/id/1603359246206) where 1603359246206 defines
-    the order number of the order to be displayed).
-    (b) Check after Purchase function to see an order.
-13. Add Profile functionality in the profile.hbs file:
-    (c) Show user’s orders:
-    i. Format order date as m/d/yyyy (e.g., 7/1/1977 for July 1st,
-    1977).
-    ii. Show “No orders yet” if the user has not made any order instead
-    of the order table and heading.
-    iii. Check after Purchase function to see orders.
-    (d) Implement Details button to show order details. When pressed, it
-    should navigate to /order/id/order.number URL. Tip: Pass number to locate the order in the URL (see Practice 2 Tips).
 14. Add File not found functionality in not-found.hbs file (see Practice 2
 Tips).
-
-
-Falta todo lo de order, inluyendo como las mostramos en el perfil y desde el purchase que refirija

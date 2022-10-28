@@ -100,7 +100,7 @@ Model.orders = [{
     tax: 3,
     product: Model.products[1]
   }]
-},{
+}, {
   number: 1266415938009,
   date: 'fecha ejemplo',
   address: 'calle13',
@@ -145,26 +145,34 @@ Model.signout = function () {
 Model.signup = function (name, surname, address, birth, email, password) {
   console.log(Model.users);
   Model.user = null;
+  existe = false;
   for (var i = 0; i < Model.users.length; i++) {
+    console.log(Model.users[i].email)
     if (Model.users[i].email == email) {
       console.log("This email is already registered.");
-      return null;
-    } else {
-      return Model.users.push({
-        '_id': Model._userCount++,
-        'email': email,
-        'password': password,
-        'name': name,
-        'surname': surname,
-        'birthdate': birth,
-        'address': address,
-        'cartItems': [],
-        'orders': [],
-      }
-      )
+      existe = true;
     }
   }
+
+  if (existe) {
+    return null
+  }
+  else {
+    return Model.users.push({
+      '_id': Model._userCount++,
+      'email': email,
+      'password': password,
+      'name': name,
+      'surname': surname,
+      'birthdate': birth,
+      'address': address,
+      'cartItems': [],
+      'orders': [],
+    }
+    )
+  }
 }
+
 
 Model.buy = function (productId) {
 
@@ -252,14 +260,14 @@ Model.purchase = function (cardNumber, cardOwner, address) {
     cardHolder: cardOwner,
     cardNumber: cardNumber,
     orderItems: []
-  
-  }
-  
-  
 
-  for(i=0;i<Model.user.cartItems.length;i++){
-    priceaux= Model.user.cartItems[i].product.price;
-    taxaux= Model.user.cartItems[i].product.tax;
+  }
+
+
+
+  for (i = 0; i < Model.user.cartItems.length; i++) {
+    priceaux = Model.user.cartItems[i].product.price;
+    taxaux = Model.user.cartItems[i].product.tax;
 
 
 
@@ -275,8 +283,8 @@ Model.purchase = function (cardNumber, cardOwner, address) {
 
   Model.user.orders.push(order)
 
-  numCI=Model.user.cartItems.length;
-  for(i=0;i<numCI;i++){
+  numCI = Model.user.cartItems.length;
+  for (i = 0; i < numCI; i++) {
     Model.user.cartItems.pop();
   }
 
@@ -284,12 +292,13 @@ Model.purchase = function (cardNumber, cardOwner, address) {
 
 }
 
-Model.getOrder = function (number){
-  for (i = 0; i < Model.user.orders.length; i++){
-      //console.log(Model.user.orders[i]);
-      if (Model.user.orders[i].number == number){
-          return Model.user.orders[i];
-      }
+Model.getOrder = function (number) {
+  for (i = 0; i < Model.user.orders.length; i++) {
+    //console.log(Model.user.orders[i]);
+    if (Model.user.orders[i].number == number) {
+      return Model.user.orders[i];
+    }
+    else return false;
   }
 }
 
