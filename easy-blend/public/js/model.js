@@ -301,7 +301,7 @@ Model.getOrder = function (number) {
       }
     }
   }
-  else return false;
+  else return null;
 }
 
 
