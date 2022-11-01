@@ -27,16 +27,16 @@
                     <tr>
                         <td>{{qty}}</td>
                         <td>{{product.title}}</td>
-                        <td>{{price}}</td>
-                        <td>{{subtotalOrderItem qty price}}</td>
+                        <td>{{price}}€</td>
+                        <td>{{subtotalOrderItem qty price}}€</td>
                     </tr>
                     {{/each}}
                 </tbody>
                 
             </table>
-            <p id="subTotal"><strong>Subtotal: </strong>{{subtotalOrder order.orderItems}}</p>
-            <p id="tax"><strong>Tax: </strong>{{taxOrder order.orderItems}}</p>
-            <p><strong>Total: </strong>{{totalOrder order.orderItems}}</p>
+            <p id="subTotal"><strong>Subtotal: </strong>{{subtotalOrder order.orderItems}}€</p>
+            <p id="tax"><strong>Tax: </strong>{{taxOrder order.orderItems}}€</p>
+            <p><strong>Total: </strong>{{totalOrder order.orderItems}}€</p>
         </div>
 
 

@@ -27,7 +27,7 @@
           <tr>
             <td>{{formatDate this.date}}</td>
             <td>{{this.number}}</td>
-            <td>{{totalOrder this.orderItems}}</td>
+            <td>{{totalOrder this.orderItems}}€</td>
             <td><button onclick="navigateTo(event, '/order/id/{{this.number}}')" class="btn btn-primary">Details</button></td>
           </tr>
          {{/each}} 
