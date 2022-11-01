@@ -8,18 +8,19 @@
 
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <img src="./images/easy_blend.png" alt="Logo EasyBlend" style="width:100px;height:70px">
-    <a class="navbar-brand" href="/"  onclick="navigateTo(event, event.target.href)">E-B
-      
+   
+    <a class="navbar-brand" style="margin-left:20px" href="/"  onclick="navigateTo(event, event.target.href)">
+       <img src="./images/easy_blend.png" alt="Logo EasyBlend" style="width:100px;height:70px">
+       Products
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+    <button class="navbar-toggler" style="margin-right:20px" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
       aria-controls="navbarContent" aria-expanded="false" arialabel="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
-      <ul class="navbar-nav mb-2 mb-md-0">
+    <div class="collapse navbar-collapse justify-content-end" style="margin-right:20px" id="navbarContent">
+      <ul class="navbar-nav mb-2 mb-md-0" >
         <li class="nav-item dropdown">
           {{#if user}}<a class="nav-link dropdown-toggle" href="#" role="button" id="cartDropdown" data-bs-toggle="dropdown"
             aria-expanded="false">Cart
