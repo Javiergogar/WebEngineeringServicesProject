@@ -2,63 +2,66 @@
 {{> header}}
 
 <script>
-
-  $(function() {
-  $('#signin-form').on('submit', function(e) {
+  function signin_clicked(e) {
     e.preventDefault();
     e.stopPropagation();
-    if (!this.checkValidity()) {
-      $(this).addClass('was-validated');
-      return false;
-    }
-    Model.signin($('#email').val(), $('#password').val()).done(function (user) {
-      navigateTo(e, '/');
-    }).fail(function (error) {
-      navigateTo(e, '/signin');
+    //console.log("Signing_clicked")
+    $('#signin-form').submit();
+  }
+  $(function () {
+    $('#signin-form').on('submit', function (e) {
+      console.log("Signing_clicked_form")
+      e.preventDefault();
+      e.stopPropagation();
+      if (!this.checkValidity()) {
+        //console.log("!checkValidity")
+        $(this).addClass('was-validated');
+        return false;
+      }
+      //console.log("checkValidity")
+      console.log($('#email').val())
+      Model.signin($('#email').val(), $('#password').val()).done(function (user) {
+        console.log("Model.signin")
+        //Model.user = user;
+        navigateTo(event, '/');
+      }).fail(function (error) {
+        console.error('SIGNIN ERROR',
+          error.status,
+          error.statusText);
+        navigateTo(event, '/signin');
+      });
+    });
+    $('#signin-form input').on('blur', function (e) {
+      if (!this.checkValidity()) {
+        $(this).removeClass('is-valid').addClass('is-invalid');
+      }
+      else {
+        $(this).removeClass('is-invalid').addClass('is-valid');
+      }
     });
   });
-  $('#signin-form input').on('blur', function(e) {
-    if (!this.checkValidity()) {
-      $(this).removeClass('is-valid').addClass('is-invalid');
-    }
-    else {
-      $(this).removeClass('is-invalid').addClass('is-valid');
-    }
-  });
-});
-
-  function signin_clicked(event) {
-    Model.signin($('#mail').val(), $('#pass').val());
-    if (Model.user) {
-      
-      navigateTo(event, '/');
-    }
-    else {
-      navigateTo(event, '/signin');
-
-    }
-  }
 </script>
 
 <main>
   <div class="container text-center" style="max-width:500px">
     <h1 class='text-center'>Sign in</h1>
-    
+
     <form id="signin-form" class="row gy-4 w-75 mx-auto needs-validation" novalidate>
 
-        <div class="form-group">
-          <input id="mail" type="email" class="form-control" placeholder="Enter email" required="" autofocus="" value="test@gmail.com">
-          <div class="invalid-feedback">The email field cannot be empty</div>
-        </div>
+      <div class="form-group">
+        <input id="email" type="email" class="form-control" placeholder="Enter email" required="" autofocus=""
+          value="test@gmail.com">
+        <div class="invalid-feedback">The email field cannot be empty</div>
+      </div>
 
-        <div class="form-group">
-          <input id="pass" type="password" class="form-control" placeholder="Password" required="" value="test">
-          <div class="invalid-feedback">The password field cannot be empty</div>
-        </div>
+      <div class="form-group">
+        <input id="password" type="password" class="form-control" placeholder="Password" required="" value="test">
+        <div class="invalid-feedback">The password field cannot be empty</div>
+      </div>
 
-        <div class="d-flex justify-content-end">
-          <button onclick="signin_clicked(event)" class="btn btn-primary">Sign in</button>
-        </div>
+      <div class="d-flex justify-content-end">
+        <button onclick="signin_clicked(event)" class="btn btn-primary">Sign in</button>
+      </div>
 
     </form>
 

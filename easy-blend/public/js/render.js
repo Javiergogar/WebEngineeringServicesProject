@@ -19,26 +19,44 @@ function render(url, container, context) {
     var path = location.pathname;
     var matches = null;
     var templates = ['signin', 'cart', 'order', 'profile', 'signup','index','purchase'];
+    var context = { user: Model.getUserId() };
+    var cartQtyP = Model.getCartQty().done(function (cartQty) {
+      context.cartQty = cartQty;
+    }).fail(function () {
+      console.error('Cannot retrieve cart quantity');
+    });
     console.log('ROUTING ', path);
-    if (matches = path.match(/^\/$/))
-      render('/templates/index.hbs', '#content', Model);
-    else if (matches = path.match(/^\/order\/id\/([^\/]*)\/?$/)) {
-      var order = Model.getOrder(matches[1]);
-      console.log(order)
-      if (order)
-        render('/templates/order.hbs', '#content', { user: Model.user, order });
-      else
-        render('/templates/not-found.hbs', '#content', Model);
+    if (matches = path.match(/^\/$/)) {
+      var productsP = Model.getProducts().done(function (products) {
+        context.products = products;
+      }).fail(function () {
+        console.error('Cannot retrieve products');
+      });
+      $.when(cartQtyP, productsP).always(function () {
+        render('/templates/index.hbs', '#content', context)
+      });
+    } else if (matches = path.match(/^\/order\/id\/([0-9^\/]+)\/?$/)) {
+      var order = Model.getOrder(matches[1]); //aqui abra que poner una promise
+      context.order = order;
+      if (order) {
+        $.when(cartQtyP).always(function() {
+          render('/templates/order.hbs', '#content', context);
+        });
+      } else {
+        $.when(cartQtyP).always(function() {
+          render('/templates/not-found.hbs', '#content', context);
+        });
+      }
+    } else if ((matches = path.match(/^\/([^\/]*)\/?$/)) && templates.includes(matches[1])) {
+      $.when(cartQtyP).always(function() {
+        render('/templates/' + matches[1] + '.hbs', '#content', context);
+      });
+    } else {
+      $.when(cartQtyP).always(function() {
+        render('/templates/not-found.hbs', '#content', context);
+      });
     }
-    //else if (matches = path.match(/^\/([^\/]*)\/?$/))
-    //    render('/templates/' + matches[1] + '.hbs', '#content', Model);
-    else if ((matches = path.match(/^\/([^\/]*)\/?$/)) && templates.includes(matches[1])) {
-      render('/templates/' + matches[1] + '.hbs', '#content', Model);
   }
-  else {
-      render('/templates/not-found.hbs', '#content', Model);
-  }
-}
     
   function loadPartial(url, partial) { 
     return $.ajax({ 

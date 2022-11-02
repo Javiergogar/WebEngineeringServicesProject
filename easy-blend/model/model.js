@@ -70,7 +70,7 @@ Model.products = [{
     password: 'test',
     name: 'Test',
     surname: 'test',
-    birthdate: new Date(1990, 1, 1),
+    birthdate: new Date(1995, 4, 1),
     address: '123 Main St, 12345 New York, USA',
     cartItems: [{
       qty: 2,
@@ -126,13 +126,17 @@ Model.products = [{
   Model._orderCount = Model.orders.length;
   
   Model.signin = function (email, password) {
-  
+
     Model.user = null;
+    //console.log(Model.user)
     for (var i = 0; i < Model.users.length; i++) {
-      if (Model.users[i].email == email && Model.users[i].password == password)
-        Model.user = Model.users[i];
+        console.log("a")
+        if (Model.users[i].email == email && Model.users[i].password == password)
+            //console.log(Model.users[i])
+            return Model.users[i];  //antes solo podia haber uno logueado, ahora pueden haber mas a la vez
     }
-  }
+    return null;
+}
   
   
   Model.signout = function () {
@@ -303,6 +307,28 @@ Model.products = [{
     }
     else return null;
   }
+
+  Model.getUserById = function (userid) {
+    for (var i = 0; i < Model.users.length; i++) {
+      if (Model.users[i]._id == userid) {
+        return Model.users[i];
+      }
+    }
+    return null;
+  };
+  
+  Model.getCartQty = function (uid) {
+    var user = Model.getUserById(uid);
+    if (user) {
+      var count = 0;
+      for (var i = 0; i < user.cartItems.length; i++) {
+        count += user.cartItems[i].qty;
+        
+      }
+      return count;
+    }
+    return null;
+  };
 
   module.exports = Model;
   

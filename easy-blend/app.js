@@ -22,10 +22,34 @@ app.use(express.urlencoded({ extended: true }));
 
 //Set public folder to publish static content
 app.use(express.static(path.join(__dirname , 'public')));
+
 //Tiene que estar en este orden concreto
 app.get('/api/products', function (req, res, next) {
   return res.json(model.products);
 });
+
+app.post('/api/users/signin', function (req, res, next) {
+  var user = model.signin(req.body.email, req.body.password);
+  if (user) {
+    //console.log(user)
+    res.cookie('uid', user._id);
+    return res.json(user);
+  }
+  return res.status(401).json({ message: 'Invalid credentials' });
+});
+
+app.get('/api/cart/qty', function (req, res, next) {
+  var uid = req.cookies.uid;
+  if (!uid) {
+    return res.status(401).send({ message: 'User has not signed in' });
+  }
+  var cartQty = model.getCartQty(uid);
+  if (cartQty !== null) {
+    return res.json(cartQty);
+  }
+  return res.status(500).send({ message: 'Cannot retrieve user cart quantity' });
+});
+
 // Set redirection to index.html 
 app.get(/\/.*/, function (req, res) { 
     res.sendFile(path.join(__dirname, '/public/index.html')); 

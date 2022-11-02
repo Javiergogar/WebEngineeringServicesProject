@@ -24,7 +24,7 @@
         <li class="nav-item dropdown">
           {{#if user}}<a class="nav-link dropdown-toggle" href="#" role="button" id="cartDropdown" data-bs-toggle="dropdown"
             aria-expanded="false">Cart
-            {{#if user}}<span class="badge rounded-pill bg-secondary">{{navCartItem}}</span>{{/if}}
+            {{#if user}}<span class="badge rounded-pill bg-secondary">{{cartQty}}</span>{{/if}}
           </a>
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" arialabelledby="cartDropdown">
             <li><a class="dropdown-item" href="/cart" onClick="navigateTo(event,event.target.href)">View cart</a></li>

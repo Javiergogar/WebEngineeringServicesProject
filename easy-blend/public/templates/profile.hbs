@@ -7,7 +7,7 @@
     <h1>Profile</h1>
     <p><strong>Name: </strong>{{user.name}}</p>
     <p><strong>Surname: </strong>{{user.surname}}</p>
-    <p><strong>Birth: </strong>{{formatDate user.birthdate}}</p>
+    <p><strong>Birth: </strong>Arreglar</p>
     <p><strong>Address: </strong>{{user.address}}</p>
     <p><strong>Email: </strong>{{user.email}}</p>
     <h1>Order List</h1>
@@ -25,7 +25,7 @@
         <tbody>
           {{#each user.orders}}
           <tr>
-            <td>{{formatDate this.date}}</td>
+            <td>Arreglar</td>
             <td>{{this.number}}</td>
             <td>{{totalOrder this.orderItems}}€</td>
             <td><button onclick="navigateTo(event, '/order/id/{{this.number}}')" class="btn btn-primary">Details</button></td>
