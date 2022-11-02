@@ -164,7 +164,7 @@ Model.signup = function (name, surname, address, birth, email, password) {
       'password': password,
       'name': name,
       'surname': surname,
-      'birthdate': birth,
+      'birthdate': new Date(birth),
       'address': address,
       'cartItems': [],
       'orders': [],
