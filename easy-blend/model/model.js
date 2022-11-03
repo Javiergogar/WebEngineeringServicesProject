@@ -216,40 +216,6 @@ Model.products = [{
     }
   }
   
-  Model.removeOne = function (productId) {
-  
-  
-    //console.log("Pulsado boton de remove One")
-    for (var i = 0; i < Model.user.cartItems.length; i++) {
-      //console.log(Model.user.cartItems[i].product._id)
-      //console.log(productId)
-  
-      if (Model.user.cartItems[i].product._id == productId) {
-        //console.log("Entro al primer if")
-        //console.log(Model.user.cartItems[i].qty)
-        if (Model.user.cartItems[i].qty <= 1) {
-          //console.log("Solo queda uno, borrando todo")
-          Model.user.cartItems.splice(i, 1);
-        }
-        else {
-          //console.log("Borrando uno")
-          Model.user.cartItems[i].qty--;
-  
-        }
-  
-      }
-    }
-  
-  
-  }
-  
-  Model.removeAll = function (productId) {
-    for (var i = 0; i < Model.user.cartItems.length; i++) {
-      if (Model.user.cartItems[i].product._id == productId) {
-        Model.user.cartItems.splice(i, 1);
-      }
-    }
-  }
   
   Model.purchase = function (cardNumber, cardOwner, address) {
   
@@ -326,6 +292,65 @@ Model.products = [{
         
       }
       return count;
+    }
+    return null;
+  };
+
+  Model.getProductById = function (pid) {
+    for (var i = 0; i < Model.products.length; i++) {
+      if (Model.products[i]._id == pid) {
+        return Model.products[i];
+      }
+    }
+    return null;
+  };
+
+  Model.addItem = function (uid, pid) {
+    var product = Model.getProductById(pid);
+    var user = Model.getUserById(uid);
+    if (user && product) {
+      for (var i = 0; i < user.cartItems.length; i++) {
+        var cartItem = user.cartItems[i];
+        if (cartItem.product._id == pid) {
+          cartItem.qty++;
+          return user.cartItems;
+        }
+      }
+      var cartItem = {
+        _id: Model._cartItemsCount++,
+        product: product,
+        qty: 1
+      };
+      user.cartItems.push(cartItem);
+      //Model.cartItems.push(cartItem);
+      return user.cartItems;
+    }
+    return null;
+  };
+
+  Model.getCartByUserId = function (uid) {
+    var user = Model.getUserById(uid);
+    if (user) {
+      return user.cartItems;
+    }
+    return null;
+  }
+
+  Model.removeItem = function(uid, pid, all = false) {
+    var user = Model.getUserById(uid);
+    if (user) {
+      for (var i = 0; i < user.cartItems.length; i++) {
+        var item = user.cartItems[i];
+        if (item.product._id == pid) {
+          if (!all && (item.qty > 1)) {
+            item.qty--;
+          } else {
+            user.cartItems.splice(i, 1);
+            //Model.cartItems.splice(Model.cartItems.indexOf(item), 1);
+          }
+          return user.cartItems;
+        }
+      }
     }
     return null;
   };

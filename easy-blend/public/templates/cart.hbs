@@ -1,16 +1,17 @@
 {{> navbar}}
 {{> header}}
+{{> messages}}
 
 <script>
 
   function removeOne_clicked(event,productId) {
-    Model.removeOne(productId);
+    Model.removeItem(productId,false);
     
     
   }
 
   function removeAll_clicked(event,productId) {
-    Model.removeAll(productId);
+    Model.removeItem(productId,true);
     
     
   }
@@ -23,8 +24,8 @@
     <div class="container">
       <h1>Shopping Cart</h1>
       
-      {{#unless user.cartItems}}<p>No product items in the shopping cart yet</p>{{/unless}}
-       {{#if user.cartItems}}<table class="table">
+      {{#unless cartItems}}<p>No product items in the shopping cart yet</p>{{/unless}}
+       {{#if cartItems}}<table class="table">
         
         <thead>
           <tr>
@@ -37,7 +38,7 @@
         </thead>
        
         <tbody>
-          {{#each user.cartItems}}
+          {{#each cartItems}}
           <tr>
              
             <td>{{this.qty}}</td>

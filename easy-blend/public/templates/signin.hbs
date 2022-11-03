@@ -1,5 +1,6 @@
 {{> navbar}}
 {{> header}}
+{{> messages}}
 
 <script>
   function signin_clicked(e) {
@@ -23,11 +24,10 @@
       Model.signin($('#email').val(), $('#password').val()).done(function (user) {
         console.log("Model.signin")
         //Model.user = user;
+        Messages.success.push('Welcome back!');
         navigateTo(event, '/');
       }).fail(function (error) {
-        console.error('SIGNIN ERROR',
-          error.status,
-          error.statusText);
+        Messages.danger.push(`${error.statusText} (${error.status}): ${error.responseJSON.message}`);
         navigateTo(event, '/signin');
       });
     });

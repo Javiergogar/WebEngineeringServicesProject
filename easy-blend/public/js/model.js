@@ -34,4 +34,25 @@ Model.getCartQty = function () {
     });
 };
 
+Model.addItem = function (pid) {
+    return $.ajax({
+        url: '/api/cart/items/product/' + pid,
+        method: 'POST'
+    });
+};
+
+Model.getCart = function () {
+    return $.ajax({
+        url: '/api/cart',
+        method: 'GET'
+    });
+};
+
+Model.removeItem = function (pid, all = false) {
+    return $.ajax({
+        url: '/api/cart/items/product/' + pid + (all ? '/all' : ''),
+        method: 'DELETE'
+    });
+};
+
 

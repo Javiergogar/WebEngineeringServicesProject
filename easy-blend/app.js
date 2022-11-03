@@ -50,6 +50,60 @@ app.get('/api/cart/qty', function (req, res, next) {
   return res.status(500).send({ message: 'Cannot retrieve user cart quantity' });
 });
 
+//Post para añadir al carrito
+app.post('/api/cart/items/product/:pid', function (req, res, next) {
+  var pid = req.params.pid;
+  var uid = req.cookies.uid;
+  if (!uid) {
+    return res.status(401).send({ message: 'User has not signed in' });
+  }
+  var cart = Model.addItem(uid, pid);
+  if (cart) {
+    return res.json(cart);
+  }
+  return res.status(500).send({ message: 'Cannot add item to cart' });
+});
+
+//Get para los cartItems
+app.get('/api/cart', function (req, res, next) {
+  var uid = req.cookies.uid;
+  if (!uid) {
+    return res.status(401).send({ message: 'User has not signed in' });
+  }
+  var cart = Model.getCartByUserId(uid);
+  if (cart) {
+    return res.json(cart);
+  }
+  return res.status(500).send({ message: 'Cannot retrieve cart' });
+});
+
+//Deletes para remove item en cart
+app.delete('/api/cart/items/product/:id', function (req, res, next) {
+  var pid = req.params.id;
+  var uid = req.cookies.uid;
+  if (!uid) {
+    return res.status(401).send({ message: 'User has not signed in' });
+  }
+  var cart = Model.removeItem(uid, pid, false);
+  if (cart) {
+    return res.json(cart);
+  }
+  return res.status(500).send({ message: 'Cannot remove item from cart' });
+});
+
+app.delete('/api/cart/items/product/:id/all', function (req, res, next) {
+  var pid = req.params.id;
+  var uid = req.cookies.uid;
+  if (!uid) {
+    return res.status(401).send({ message: 'User has not signed in' });
+  }
+  var cart = Model.removeItem(uid, pid, true);
+  if (cart) {
+    return res.json(cart);
+  }
+  return res.status(500).send({ message: 'Cannot remove item from cart' });
+});
+
 // Set redirection to index.html 
 app.get(/\/.*/, function (req, res) { 
     res.sendFile(path.join(__dirname, '/public/index.html')); 

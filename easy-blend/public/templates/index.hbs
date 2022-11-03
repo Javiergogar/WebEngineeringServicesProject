@@ -1,9 +1,16 @@
 {{> navbar}}
 {{> header}}
+{{> messages}}
 <script>
-  function buy_clicked(event, productId) {
-    Model.buy(productId);
-    navigateTo(event, "/cart");
+  function buy_clicked(event, pid) {
+    event.preventDefault();
+    Model.addItem(pid).done(function () {
+      route(event.target.href); // Or route();
+    }).fail(function (error) {
+      console.error('ADDITEM ERROR ',
+        error.status,
+        error.statusText);
+    });
 
   }
 </script>
