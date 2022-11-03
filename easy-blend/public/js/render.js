@@ -124,19 +124,39 @@ $(function () {
 
     return new Handlebars.SafeString(result);
   });
+  
   Handlebars.registerHelper('subtotalCartItem', function () {
     var result = 0;
-    var cart= Model.getCart();
+    var cart;
+    var cartP = Model.getCart().done(function (cartaux) {
+      cart = cartaux;
+      console.log(cart.length);
 
-    for (var i = 0; i < cart.length; i++) {
-      result = result + (cart[i].qty * cart[i].product.price)
-    }
+      for (var i = 0; i < cart.length; i++) {
+        console.log(cart[i].product.price);
+        result = result + (cart[i].qty * cart[i].product.price)
+        console.log(result)
+        
+      }
+      
+      console.log(new Handlebars.SafeString(result))
 
-    return new Handlebars.SafeString(result);
+    }).fail(function () {
+      console.error('Cannot retrieve cart');
+      return null;
+
+    });
+
+    $.when(cartP).always(function () {
+      return new Handlebars.SafeString(result);
+    });
+    
   });
+
   Handlebars.registerHelper('taxesCartItem', function () {
     var result = 0
     var cart= Model.getCart();
+    
 
     for (var i = 0; i < cart.length; i++) {
       result = result + (cart[i].qty * cart[i].product.tax)
@@ -147,6 +167,7 @@ $(function () {
   Handlebars.registerHelper('totalCart', function () {
     var result = 0
     var cart= Model.getCart();
+    
 
     for (var i = 0; i < cart.length; i++) {
       result = result + (cart[i].qty * cart[i].product.tax) + (cart[i].qty * cart[i].product.price)
