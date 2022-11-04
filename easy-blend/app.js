@@ -30,8 +30,9 @@ app.get('/api/products', function (req, res, next) {
 
 app.post('/api/users/signin', function (req, res, next) {
   var user = model.signin(req.body.email, req.body.password);
+  
   if (user) {
-    //console.log(user)
+    console.log(user)  
     res.cookie('uid', user._id);
     return res.json(user);
   }
@@ -102,6 +103,30 @@ app.delete('/api/cart/items/product/:id/all', function (req, res, next) {
     return res.json(cart);
   }
   return res.status(500).send({ message: 'Cannot remove item from cart' });
+});
+
+//Post para signup
+app.post('/api/users/signup', function (req, res, next) {
+  var user = model.signup(req.body.name,req.body.surname,req.body.address,req.body.birth,req.body.email, req.body.password);
+  if (user) {
+    console.log(user)
+    return res.json(user);
+  }
+  return res.status(401).json({ message: 'Signup failed' });
+});
+
+//Get para el profile
+app.get('/api/users/profile', function (req, res, next) {
+  var uid = req.cookies.uid;
+  if (!uid) {
+    return res.status(401).send({ message: 'User has not signed in' });
+  }
+  var user = Model.getUserById(uid);
+  console.log(user)
+  if (user) {
+    return res.json(user);
+  }
+  return res.status(500).send({ message: 'Cannot retrieve user' });
 });
 
 // Set redirection to index.html 

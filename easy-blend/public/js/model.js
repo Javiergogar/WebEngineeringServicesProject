@@ -55,4 +55,19 @@ Model.removeItem = function (pid, all = false) {
     });
 };
 
+Model.signup = function (name, surname, address, birth, email, password) {
+    return $.ajax({
+        url: '/api/users/signup',
+        method: 'POST',
+        data: { name, surname, address, birth, email, password }
+    });
+};
+
+Model.getProfile = function () {
+    return $.ajax({
+        url: '/api/users/profile',
+        method: 'GET',
+    });
+};
+
 

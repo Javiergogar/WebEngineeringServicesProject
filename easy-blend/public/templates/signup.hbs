@@ -6,24 +6,28 @@
         <h1 class="p-3 ">Sign up</h1>
         <form id="signup-form" class="row gy-3 needs-validation" novalidate>
             <div class="form-group">
-                <input type="text" id="name" class="form-control" placeholder="Name" required="" autofocus="" value="test">
+                <input type="text" id="name" class="form-control" placeholder="Name" required="" autofocus=""
+                    value="test">
                 <div class="invalid-feedback">The name field cannot be empty</div>
             </div>
             <div class="form-group">
-                <input type="text" id="surname" class="form-control" placeholder="Surname" required="" autofocus="" value="test">
+                <input type="text" id="surname" class="form-control" placeholder="Surname" required="" autofocus=""
+                    value="test">
                 <div class="invalid-feedback">The surname field cannot be empty</div>
             </div>
             <div class="form-group">
-                <input type="text" id="address" class="form-control" placeholder="Address" required="" autofocus="" value="test">
+                <input type="text" id="address" class="form-control" placeholder="Address" required="" autofocus=""
+                    value="test">
                 <div class="invalid-feedback">The address field cannot be empty</div>
             </div>
             <div class="form-group">
-                <input type="date" id="date" class="form-control" placeholder="Birth Date" required="" autofocus="" value="2001-02-13">
+                <input type="date" id="date" class="form-control" placeholder="Birth Date" required="" autofocus=""
+                    value="2001-02-13">
                 <div class="invalid-feedback">The birth Date field cannot be empty</div>
             </div>
             <div class="form-group">
-                <input type="email" id="email" class="form-control" placeholder="Email address" required=""
-                    autofocus="" value="test@test.com">
+                <input type="email" id="email" class="form-control" placeholder="Email address" required="" autofocus=""
+                    value="test@test.com">
                 <div class="invalid-feedback">The email field cannot be empty</div>
             </div>
             <div class="form-group">
@@ -59,9 +63,17 @@
             if ($('#password').val() == ($('#passwordc').val())) {
                 // i. If they match, navigate to /signin.
                 console.log('Passwords match');
+
                 Model.signup($('#name').val(), $('#surname').val(), $('#address').val(),
-                    $('#date').val(), $('#email').val(), $('#password').val());
-                navigateTo(e, '/signin');
+                    $('#date').val(), $('#email').val(), $('#password').val()).done(function (user) {
+                        console.log(user)
+                        Messages.success.push('Succesfull signup!');
+                        navigateTo(e, '/signin');
+                    }).fail(function (error) {
+                        Messages.danger.push(`${error.statusText} (${error.status}): ${error.responseJSON.message}`);
+                        navigateTo(event, '/signup');
+                    });
+
             } else {
                 // ii. If they do not match, invalidate the form.
                 $('#invalid-feedback1').text('Passwords do not match');

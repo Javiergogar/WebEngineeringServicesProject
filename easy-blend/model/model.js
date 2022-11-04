@@ -146,38 +146,6 @@ Model.products = [{
   }
   
   
-  Model.signup = function (name, surname, address, birth, email, password) {
-    console.log(Model.users);
-    Model.user = null;
-    existe = false;
-    for (var i = 0; i < Model.users.length; i++) {
-      console.log(Model.users[i].email)
-      if (Model.users[i].email == email) {
-        console.log("This email is already registered.");
-        existe = true;
-      }
-    }
-  
-    if (existe) {
-      return null
-    }
-    else {
-      return Model.users.push({
-        '_id': Model._userCount++,
-        'email': email,
-        'password': password,
-        'name': name,
-        'surname': surname,
-        'birthdate': new Date(birth),
-        'address': address,
-        'cartItems': [],
-        'orders': [],
-      }
-      )
-    }
-  }
-  
-  
   Model.buy = function (productId) {
   
     producto = null;
@@ -354,6 +322,40 @@ Model.products = [{
     }
     return null;
   };
+
+  Model.signup = function (name, surname, address, birth, email, password) {
+    console.log(Model.users);
+    Model.user = null;
+    existe = false;
+    for (var i = 0; i < Model.users.length; i++) {
+      console.log(Model.users[i].email)
+      if (Model.users[i].email == email) {
+        console.log("This email is already registered.");
+        existe = true;
+      }
+    }
+  
+    if (existe) {
+      return null
+    }
+    else {
+      //console.log(Model._userCount);
+      Model._userCount= Model._userCount + 1;
+      //console.log(Model._userCount);
+      return Model.users.push({
+        '_id': Model._userCount,
+        'email': email,
+        'password': password,
+        'name': name,
+        'surname': surname,
+        'birthdate': new Date(birth),
+        'address': address,
+        'cartItems': [],
+        'orders': [],
+      }
+      )
+    }
+  }
 
   module.exports = Model;
   

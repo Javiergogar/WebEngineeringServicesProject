@@ -59,7 +59,21 @@ function route() {
       render('/templates/cart.hbs', '#content', context);
     });
 
-  } else if ((matches = path.match(/^\/([^\/]*)\/?$/)) && templates.includes(matches[1])) {
+  } 
+  else if (matches = path.match(/^\/profile\/?$/)) {
+    console.log("Ruteo con context")
+    var profileP = Model.getProfile().done(function (profile) {
+      context.user = profile;
+      //console.log(context.user);
+    }).fail(function () {
+      console.error('Cannot retrieve profile');
+    });
+    $.when(cartQtyP, profileP).always(function () {
+      render('/templates/profile.hbs', '#content', context);
+    });
+
+  }
+  else if ((matches = path.match(/^\/([^\/]*)\/?$/)) && templates.includes(matches[1])) {
     console.log("Ruteo sin context")
     $.when(cartQtyP).always(function () {
       render('/templates/' + matches[1] + '.hbs', '#content', context);
