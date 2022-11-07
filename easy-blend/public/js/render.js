@@ -41,12 +41,12 @@ function route() {
       context.order = order;
     }).fail(function () {
       console.error('Cannot retrieve orders');
-      $.when(cartQtyP).always(function () {
+      $.when(cartQtyP,orderP).always(function () {
         render('/templates/not-found.hbs', '#content', context);
       });
     }); 
 
-    $.when(cartQtyP).always(function () {
+    $.when(cartQtyP,orderP).always(function () {
       render('/templates/order.hbs', '#content', context);
     });
   } else if (matches = path.match(/^\/cart\/?$/)) {
