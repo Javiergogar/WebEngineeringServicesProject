@@ -23,7 +23,6 @@
       //console.log($('#email').val())
       Model.signin($('#email').val(), $('#password').val()).done(function (user) {
         //console.log("Model.signin")
-        //Model.user = user;
         Messages.success.push('Welcome back!');
         navigateTo(event, '/');
       }).fail(function (error) {

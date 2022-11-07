@@ -293,7 +293,6 @@ Model.addItem = function (uid, pid) {
       qty: 1
     };
     user.cartItems.push(cartItem);
-    //Model.cartItems.push(cartItem);
     return user.cartItems;
   }
   return null;
@@ -317,7 +316,6 @@ Model.removeItem = function (uid, pid, all = false) {
           item.qty--;
         } else {
           user.cartItems.splice(i, 1);
-          //Model.cartItems.splice(Model.cartItems.indexOf(item), 1);
         }
         return user.cartItems;
       }
