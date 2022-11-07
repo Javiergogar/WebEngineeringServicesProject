@@ -70,4 +70,27 @@ Model.getProfile = function () {
     });
 };
 
+Model.getOrdersByUserId = function () {
+    return $.ajax({
+        url: '/api/orders',
+        method: 'GET',
+    });
+};
+
+Model.purchase = function (cardNumber, cardOwner, address){
+    return $.ajax({
+        url: '/api/orders',
+        method: 'POST',
+        data: {cardNumber, cardOwner, address}
+    });
+};
+
+Model.getOrder = function (oid){
+    return $.ajax({
+        url: '/api/orders/id/'+oid,
+        method: 'GET',
+        
+    });
+};
+
 

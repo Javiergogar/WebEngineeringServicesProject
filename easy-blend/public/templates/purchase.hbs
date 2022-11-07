@@ -7,29 +7,29 @@
   <div class="container">
     <div class="row gy-4">
       <h1>Purchase</h1>
-      {{#unless user.cartItems}}<p>No items in shopping cart</p>{{/unless}}
-      {{#if user.cartItems}}
+      {{#unless cartItems}}<p>No items in shopping cart</p>{{/unless}}
+      {{#if cartItems}}
       <form id="purchase-form" class="row gy-3 needs-validation" novalidate>
 
-      <div class="form-group">
-      <!--input id="date" type="date" class="form-control" placeholder="dd/mm/yyyy"-->
-      <p>{{purchaseDate}}</p>
-      </div>
+        <div class="form-group">
+          <!--input id="date" type="date" class="form-control" placeholder="dd/mm/yyyy"-->
+          <p>{{purchaseDate}}</p>
+        </div>
 
-      <div class="form-group">
-      <input id="address" type="text" class="form-control" placeholder="Address" required="">
-      <div class="invalid-feedback">The address field cannot be empty</div>
-      </div>
+        <div class="form-group">
+          <input id="address" type="text" class="form-control" placeholder="Address" required="">
+          <div class="invalid-feedback">The address field cannot be empty</div>
+        </div>
 
-      <div class="form-group">
-      <input id="cardNumber" type="text" class="form-control" placeholder="Card Number" required="">
-      <div class="invalid-feedback">The card number field cannot be empty</div>
-      </div>
+        <div class="form-group">
+          <input id="cardNumber" type="text" class="form-control" placeholder="Card Number" required="">
+          <div class="invalid-feedback">The card number field cannot be empty</div>
+        </div>
 
-      <div class="form-group">
-      <input id="cardOwner" type="text" class="form-control" placeholder="Card Owner" required="">
-      <div class="invalid-feedback">The card owner field cannot be empty</div>
-      </div>
+        <div class="form-group">
+          <input id="cardOwner" type="text" class="form-control" placeholder="Card Owner" required="">
+          <div class="invalid-feedback">The card owner field cannot be empty</div>
+        </div>
 
       </form>
 
@@ -46,7 +46,7 @@
         </tr>
       </thead>
       <tbody>
-        {{#each user.cartItems}}
+        {{#each cartItems}}
         <tr>
           <td>{{this.qty}}</td>
           <td>{{this.product.title}}</td>
@@ -55,9 +55,9 @@
         {{/each}}
       </tbody>
     </table>
-    <p><strong>Subtotal:  </strong>{{subtotalCartItem}}€</p>
-    <p><strong>Tax: </strong>{{taxesCartItem}}€</p>
-    <p><strong>Total: </strong>{{totalCart}}</p>
+    <p><strong>Subtotal: </strong>{{subtotalCartItem cartItems}}€</p>
+    <p><strong>Tax: </strong>{{taxesCartItem cartItems}}€</p>
+    <p><strong>Total: </strong>{{totalCart cartItems}}</p>
     <div class="text-end">
       <td><button onclick="checkout_clicked(event)" class="btn btn-primary">Checkout</button></td>
     </div>
@@ -71,7 +71,7 @@
     e.preventDefault();
     e.stopPropagation();
     $('#purchase-form').submit();
-    
+
   }
 
   $(function () {
@@ -82,21 +82,31 @@
         $(this).addClass('was-validated');
         return false;
       }
-      
-      order=Model.purchase($('#cardNumber').val(), $('#cardOwner').val(), $('#address').val());
-      navigateTo(e, '/order/id/'+order.number);
-      //navigateTo(e, '/signin');
+
+      Model.purchase($('#cardNumber').val(),  $('#cardOwner').val(),$('#address').val()).done(function (order) {
+        navigateTo(event, '/order/id/' + order.number);
+      }).fail(function (error) {
+        console.error('PURCHASE ERROR',
+          error.status,
+          error.statusText);
+      })
 
     });
-    $('#purchase-form input').on('blur', function (e) {
-      if (!this.checkValidity()) {
-        $(this).removeClass('is-valid').addClass('is-invalid');
-      }
-      else {
-        $(this).removeClass('is-invalid').addClass('is-valid');
-      }
-    });
+    //order=Model.purchase($('#cardNumber').val(), $('#cardOwner').val(), $('#address').val());
+    //console.log(order)
+    //navigateTo(e, '/order/id/'+order.number);
+    //navigateTo(e, '/signin');
+
   });
+  $('#purchase-form input').on('blur', function (e) {
+    if (!this.checkValidity()) {
+      $(this).removeClass('is-valid').addClass('is-invalid');
+    }
+    else {
+      $(this).removeClass('is-invalid').addClass('is-valid');
+    }
+  });
+  
 </script>
 
 {{> footer}}

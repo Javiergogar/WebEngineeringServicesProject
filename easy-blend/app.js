@@ -32,7 +32,7 @@ app.post('/api/users/signin', function (req, res, next) {
   var user = model.signin(req.body.email, req.body.password);
   
   if (user) {
-    console.log(user)  
+    //console.log(user)  
     res.cookie('uid', user._id);
     return res.json(user);
   }
@@ -122,12 +122,58 @@ app.get('/api/users/profile', function (req, res, next) {
     return res.status(401).send({ message: 'User has not signed in' });
   }
   var user = Model.getUserById(uid);
-  console.log(user)
+  //console.log(user)
   if (user) {
     return res.json(user);
   }
-  return res.status(500).send({ message: 'Cannot retrieve user' });
+  return res.status(501).send({ message: 'Cannot retrieve user' });
 });
+
+//Get para orders
+app.get('/api/orders', function (req, res, next) {
+  var uid = req.cookies.uid;
+  if (!uid) {
+    return res.status(401).send({ message: 'User has not signed in' });
+  }
+  var orders = Model.getOrdersByUserId(uid);
+  console.log(orders)
+  if (orders) {
+    return res.json(orders);
+  }
+  return res.status(502).send({ message: 'Cannot retrieve orders' });
+});
+
+//Post para purchase
+app.post('/api/orders', function (req, res, next) {
+  var uid = req.cookies.uid;
+  if (!uid) {
+    return res.status(401).send({ message: 'User has not signed in' });
+  }
+
+  var order = model.purchase(req.body.cardNumber,req.body.cardOwner,req.body.address,uid);
+  console.log(order)
+  if (order) {
+    
+    return res.json(order);
+  }
+  return res.status(503).json({ message: 'Checkout failed' });
+});
+
+//Get para order concreta
+app.get('/api/orders/id/:oid', function (req, res, next) {
+  var oid = req.params.oid;
+  var uid = req.cookies.uid;
+  if (!uid) {
+    return res.status(401).send({ message: 'User has not signed in' });
+  }
+  var order = Model.getOrder(oid,uid);
+  if (order) {
+    return res.json(order);
+  }
+  return res.status(500).send({ message: 'Cannot show order from this user' });
+});
+
+
 
 // Set redirection to index.html 
 app.get(/\/.*/, function (req, res) { 

@@ -19,7 +19,7 @@ function route() {
   var path = location.pathname;
   var matches = null;
   var templates = ['signin', 'cart', 'order', 'profile', 'signup', 'index', 'purchase'];
-  var context = { user: Model.getUserId(), messages: { success: Messages.success, danger: Messages.danger } }; 
+  var context = { user: Model.getUserId(), messages: { success: Messages.success, danger: Messages.danger } };
   Messages.clear();
   var cartQtyP = Model.getCartQty().done(function (cartQty) {
     context.cartQty = cartQty;
@@ -37,17 +37,18 @@ function route() {
       render('/templates/index.hbs', '#content', context)
     });
   } else if (matches = path.match(/^\/order\/id\/([0-9^\/]+)\/?$/)) {
-    var order = Model.getOrder(matches[1]); //aqui abra que poner una promise
-    context.order = order;
-    if (order) {
-      $.when(cartQtyP).always(function () {
-        render('/templates/order.hbs', '#content', context);
-      });
-    } else {
+    var orderP = Model.getOrder(matches[1]).done(function (order) {
+      context.order = order;
+    }).fail(function () {
+      console.error('Cannot retrieve orders');
       $.when(cartQtyP).always(function () {
         render('/templates/not-found.hbs', '#content', context);
       });
-    }
+    }); 
+
+    $.when(cartQtyP).always(function () {
+      render('/templates/order.hbs', '#content', context);
+    });
   } else if (matches = path.match(/^\/cart\/?$/)) {
     console.log("Ruteo con context")
     var cartP = Model.getCart().done(function (cart) {
@@ -58,8 +59,18 @@ function route() {
     $.when(cartQtyP, cartP).always(function () {
       render('/templates/cart.hbs', '#content', context);
     });
+  } else if (matches = path.match(/^\/purchase\/?$/)) {
+    console.log("Ruteo con context")
+    var cartP = Model.getCart().done(function (cart) {
+      context.cartItems = cart;
+    }).fail(function () {
+      console.error('Cannot retrieve cart');
+    });
+    $.when(cartQtyP, cartP).always(function () {
+      render('/templates/purchase.hbs', '#content', context);
+    });
 
-  } 
+  }
   else if (matches = path.match(/^\/profile\/?$/)) {
     console.log("Ruteo con context")
     var profileP = Model.getProfile().done(function (profile) {
@@ -68,7 +79,12 @@ function route() {
     }).fail(function () {
       console.error('Cannot retrieve profile');
     });
-    $.when(cartQtyP, profileP).always(function () {
+    var ordersP = Model.getOrdersByUserId().done(function (orders) {
+      context.orders = orders;
+    }).fail(function () {
+      console.error('Cannot retrieve user orders');
+    })
+    $.when(cartQtyP, profileP, ordersP).always(function () {
       render('/templates/profile.hbs', '#content', context);
     });
 
@@ -105,7 +121,7 @@ $(function () {
     var result = qty * price;
     return new Handlebars.SafeString(result);
   });
-  
+
   Handlebars.registerHelper('subtotalOrderItem', function (qty, price) {
     var result = qty * price
 
@@ -138,15 +154,15 @@ $(function () {
 
     return new Handlebars.SafeString(result);
   });
-  
+
   Handlebars.registerHelper('subtotalCartItem', function (cartItems) {
     var result = 0;
-    
-      for (var i = 0; i < cartItems.length; i++) {
-        
-        result = result + (cartItems[i].qty * cartItems[i].product.price)
-      }
-      return new Handlebars.SafeString(result); 
+
+    for (var i = 0; i < cartItems.length; i++) {
+
+      result = result + (cartItems[i].qty * cartItems[i].product.price)
+    }
+    return new Handlebars.SafeString(result);
   });
 
   Handlebars.registerHelper('taxesCartItem', function (cartItems) {
@@ -161,8 +177,8 @@ $(function () {
 
   Handlebars.registerHelper('totalCart', function (cartItems) {
     var result = 0
-    
-    
+
+
 
     for (var i = 0; i < cartItems.length; i++) {
       result = result + (cartItems[i].qty * cartItems[i].product.tax) + (cartItems[i].qty * cartItems[i].product.price)
@@ -182,9 +198,6 @@ $(function () {
   });
   Handlebars.registerHelper('purchaseDate', function () {
     var result
-
-
-
     let date = new Date();
     let dd = String(date.getDate()).padStart(2, '0');
     let mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -195,12 +208,13 @@ $(function () {
   });
   Handlebars.registerHelper('formatDate', function (date) {
     var result
-    console.log(date);
-    typeof (date);
+    var t = new Date(date)
+    //console.log(t);
 
-    let dd = String(date.getDate()).padStart(2, '0');
-    let mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = date.getFullYear();
+
+    let dd = String(t.getDate()).padStart(2, '0');
+    let mm = String(t.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = t.getFullYear();
     result = mm + "/" + dd + "/" + yyyy;
 
     return new Handlebars.SafeString(result);
