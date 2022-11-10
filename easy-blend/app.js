@@ -1,3 +1,19 @@
+// Import mongoose
+var mongoose = require('mongoose');
+
+// Instantiate MongoDB connection
+const uri = 'mongodb://127.0.0.1/game-shop';
+mongoose.Promise = global.Promise;
+
+var db = mongoose.connection;
+db.on('connecting', function () { console.log('Connecting to', uri); });
+db.on('connected', function () { console.log('Connected to', uri); });
+db.on('disconnecting', function () { console.log('Disconnecting from', uri); });
+db.on('disconnected', function () { console.log('Disconnected from', uri); });
+db.on('error', function (err) { console.error('Error:', err.message); });
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
 // Import express module
 var express = require('express');
 // Import path module
@@ -28,27 +44,39 @@ app.get('/api/products', function (req, res, next) {
   return res.json(model.products);
 });
 
+
 app.post('/api/users/signin', function (req, res, next) {
-  var user = model.signin(req.body.email, req.body.password);
-  
-  if (user) {
-    //console.log(user)  
-    res.cookie('uid', user._id);
-    return res.json(user);
-  }
-  return res.status(401).json({ message: 'Invalid credentials' });
+  return model.signin(req.body.email, req.body.password).then(function (user) {
+    if (user) {
+      res.cookie('uid', user._id);
+      return res.json({});
+    }
+    return res.status(401).json({ message: 'Invalid credentials' });
+  });
 });
 
+// app.get('/api/cart/qty', function (req, res, next) {
+//   var uid = req.cookies.uid;
+//   if (!uid) {
+//     return res.status(401).send({ message: 'User has not signed in' });
+//   }
+//   var cartQty = model.getCartQty(uid);
+//   if (cartQty !== null) {
+//     return res.json(cartQty);
+//   }
+//   return res.status(500).send({ message: 'Cannot retrieve user cart quantity' });
+// });
 app.get('/api/cart/qty', function (req, res, next) {
   var uid = req.cookies.uid;
   if (!uid) {
-    return res.status(401).send({ message: 'User has not signed in' });
+    return res.status(401).json({ message: 'User has not signed in' });
   }
-  var cartQty = model.getCartQty(uid);
-  if (cartQty !== null) {
-    return res.json(cartQty);
-  }
-  return res.status(500).send({ message: 'Cannot retrieve user cart quantity' });
+  return model.getCartQty(uid).then(function (qty) {
+    if (qty > 0) {
+      return res.json(qty);
+    }
+    return res.status(500).json({ message: 'Cannot retrieve user cart quantity' });
+  });
 });
 
 //Post para añadir al carrito
@@ -105,14 +133,13 @@ app.delete('/api/cart/items/product/:id/all', function (req, res, next) {
   return res.status(500).send({ message: 'Cannot remove item from cart' });
 });
 
-//Post para signup
 app.post('/api/users/signup', function (req, res, next) {
-  var user = model.signup(req.body.name,req.body.surname,req.body.address,req.body.birth,req.body.email, req.body.password);
-  if (user) {
-    console.log(user)
-    return res.json(user);
-  }
-  return res.status(401).json({ message: 'Signup failed' });
+  return model.signup(req.body.name, req.body.surname, req.body.address, req.body.birth, req.body.email, req.body.password).then(function (user) {
+    if (user) {
+      return res.json(user._id);
+    }
+    return res.status(500).json({ message: 'Cannot create new user' });
+  });
 });
 
 //Get para el profile

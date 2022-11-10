@@ -1,3 +1,7 @@
+var mongoose = require('mongoose');
+var User = require('./user');
+//var CartItem = require('./cartItem');
+
 Model = {}
 Model.products = [{
   _id: 1,
@@ -126,17 +130,8 @@ Model._userCount = Model.users.length;
 Model._orderCount = Model.orders.length;
 
 Model.signin = function (email, password) {
-
-  Model.user = null;
-  //console.log(Model.user)
-  for (var i = 0; i < Model.users.length; i++) {
-    //console.log("a")
-    if (Model.users[i].email == email && Model.users[i].password == password)
-      //console.log(Model.users[i])
-      return Model.users[i];  //antes solo podia haber uno logueado, ahora pueden haber mas a la vez
-  }
-  return null;
-}
+  return User.findOne({ email, password });
+};
 
 
 Model.signout = function () {
@@ -254,18 +249,30 @@ Model.getUserById = function (userid) {
   return null;
 };
 
-Model.getCartQty = function (uid) {
-  var user = Model.getUserById(uid);
-  if (user) {
-    var count = 0;
-    for (var i = 0; i < user.cartItems.length; i++) {
-      count += user.cartItems[i].qty;
+// Model.getCartQty = function (uid) {
+//   var user = Model.getUserById(uid);
+//   if (user) {
+//     var count = 0;
+//     for (var i = 0; i < user.cartItems.length; i++) {
+//       count += user.cartItems[i].qty;
 
+//     }
+//     return count;
+//   }
+//   return null;
+// };
+
+Model.getCartQty = function(uid){
+  var qty=0;
+  return User.findById(uid).then(function(user){
+    if(user){
+      for(i=0;i<user.cartItems.length;i++){
+        qty=qty + user.cartItems[i].qty;
+      }
+      return qty
     }
-    return count;
-  }
-  return null;
-};
+  })
+}
 
 Model.getProductById = function (pid) {
   for (var i = 0; i < Model.products.length; i++) {
@@ -324,39 +331,24 @@ Model.removeItem = function (uid, pid, all = false) {
   return null;
 };
 
-Model.signup = function (name, surname, address, birth, email, password) {
-  console.log(Model.users);
-  Model.user = null;
-  existe = false;
-  for (var i = 0; i < Model.users.length; i++) {
-    console.log(Model.users[i].email)
-    if (Model.users[i].email == email) {
-      console.log("This email is already registered.");
-      existe = true;
-    }
-  }
 
-  if (existe) {
-    return null
-  }
-  else {
-    //console.log(Model._userCount);
-    Model._userCount = Model._userCount + 1;
-    //console.log(Model._userCount);
-    return Model.users.push({
-      '_id': Model._userCount,
-      'email': email,
-      'password': password,
-      'name': name,
-      'surname': surname,
-      'birthdate': new Date(birth),
-      'address': address,
-      'cartItems': [],
-      'orders': [],
+Model.signup = function (name, surname, address, birth, email, password) {
+  return User.findOne({ email }).then(function (user) {
+    if (!user) {
+      var user = new User({
+        email: email,
+        password: password,
+        name: name,
+        surname: surname,
+        birth: (new Date(birth)).getTime(),
+        address: address,
+        cartItems: []
+      });
+      return user.save();
     }
-    )
-  }
-}
+    return null;
+  });
+};
 
 Model.getOrdersByUserId = function (uid) {
   var user = Model.getUserById(uid);
