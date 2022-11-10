@@ -4,8 +4,9 @@ mongoose.Promise = global.Promise;
 
 //Schemas
 var User = require('./user');
+var Product = require('./product');
 
-var uri = 'mongodb://127.0.0.1/game-shop'; //hasta game-shop es el server, lo de despues es el nombre de la bbdd
+var uri = 'mongodb://127.0.0.1/easy-blend'; //hasta game-shop es el server, lo de despues es el nombre de la bbdd
 var db = mongoose.connection;
 
 db.on('connecting', function () {
@@ -39,9 +40,18 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(
             Date.UTC(1990, 0, 1), address: '123 Main St, 12345 New York, United States',
         cartItems: [{ qty: 3, product: null }, { qty: 1, product: null }]
     });
+    var product = new Product({
+    title: 'Trio blender',
+    description: 'This is a pack to save some money',
+    url: 'images/trio_blend.jpg',
+    price: 180,
+    tax: 9.66
+    })
     return User.deleteMany()
     .then(function () { return User.deleteMany(); })
     .then(function () { return user.save(); })
+    .then(function () { return Product.deleteMany(); })
+    .then(function () { return product.save(); })
     .then(function (result) { 
         console.log(result);
         return mongoose.disconnect(); });
