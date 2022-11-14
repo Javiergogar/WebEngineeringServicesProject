@@ -29,6 +29,7 @@ function route() {
   console.log('ROUTING ', path);
   if (matches = path.match(/^\/$/)) {
     var productsP = Model.getProducts().done(function (products) {
+      console.log(products)
       context.products = products;
     }).fail(function () {
       console.error('Cannot retrieve products');

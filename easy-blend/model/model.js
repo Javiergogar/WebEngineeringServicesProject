@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = require('./user');
+var Product= require('./product');
 //var CartItem = require('./cartItem');
 
 Model = {}
@@ -68,24 +69,24 @@ Model.products = [{
 }
 ];
 Model.user = null;
-Model.users = [{
-  _id: 1,
-  email: 'test@gmail.com',
-  password: 'test',
-  name: 'Test',
-  surname: 'test',
-  birthdate: new Date(1995, 4, 1),
-  address: '123 Main St, 12345 New York, USA',
-  cartItems: [{
-    qty: 2,
-    product: Model.products[0]
-  }, {
-    qty: 1,
-    product: Model.products[1]
-  }],
-  orders: []
+// Model.users = [{
+//   _id: 1,
+//   email: 'test@gmail.com',
+//   password: 'test',
+//   name: 'Test',
+//   surname: 'test',
+//   birthdate: new Date(1995, 4, 1),
+//   address: '123 Main St, 12345 New York, USA',
+//   cartItems: [{
+//     qty: 2,
+//     product: Model.products[0]
+//   }, {
+//     qty: 1,
+//     product: Model.products[1]
+//   }],
+//   orders: []
 
-}];
+// }];
 
 Model.orders = [{
   number: 1266415938008,
@@ -126,10 +127,11 @@ Model.orders = [{
 
 
 
-Model._userCount = Model.users.length;
+// Model._userCount = Model.users.length;
 Model._orderCount = Model.orders.length;
 
 Model.signin = function (email, password) {
+  
   return User.findOne({ email, password });
 };
 
@@ -356,6 +358,11 @@ Model.getOrdersByUserId = function (uid) {
     return user.orders;
   }
   return null;
+}
+
+Model.getProducts = function (){
+  
+  return Product.find()
 }
 
 

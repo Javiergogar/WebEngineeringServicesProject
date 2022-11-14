@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 // Instantiate MongoDB connection
-const uri = 'mongodb://127.0.0.1/game-shop';
+const uri = 'mongodb://127.0.0.1/easy-blend';
 mongoose.Promise = global.Promise;
 
 var db = mongoose.connection;
@@ -41,7 +41,14 @@ app.use(express.static(path.join(__dirname , 'public')));
 
 //Tiene que estar en este orden concreto
 app.get('/api/products', function (req, res, next) {
-  return res.json(model.products);
+  
+  return model.getProducts().then(function (products) {
+    if (products) {
+      return res.json(products);
+    }
+    return res.status(500).json({ message: 'Cannot retrieve products' });
+
+  });
 });
 
 

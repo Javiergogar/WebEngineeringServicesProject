@@ -36,35 +36,80 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(
     // });
     //var cartItems = [new CartItem({ qty: 3, product: null }), new CartItem({ qty: 1, product: null })];
     var user = new User({
-        email: 'johndoe@example.com', password: '1234', name: 'John', surname: 'Doe', birth:
-            Date.UTC(1990, 0, 1), address: '123 Main St, 12345 New York, United States',
+        email: 'test@gmail.com', password: 'test', name: 'Test', surname: 'test', birth:
+            Date.UTC(1990, 0, 1), address: 'calle13',
         cartItems: [{ qty: 3, product: null }, { qty: 1, product: null }]
     });
-    var product = new Product({
-    title: 'Trio blender',
-    description: 'This is a pack to save some money',
-    url: 'images/trio_blend.jpg',
-    price: 180,
-    tax: 9.66
-    })
+
     return User.deleteMany()
-    .then(function () { return User.deleteMany(); })
-    .then(function () { return user.save(); })
-    .then(function () { return Product.deleteMany(); })
-    .then(function () { return product.save(); })
-    .then(function (result) { 
-        console.log(result);
-        return mongoose.disconnect(); });
+        .then(function () { return User.deleteMany(); })
+        .then(function () { return user.save(); })
+        .then(function () { return Product.deleteMany(); })
+        .then(function () { return Product.insertMany([{
+            title: 'Trio blender',
+            description: 'This is a pack to save some money',
+            url: 'images/trio_blend.jpg',
+            price: 180,
+            tax: 9.66
+        },
+            {
+            title: 'Pink blender',
+            description: 'This is a nice and happy blender. If you use this you will brighten your days',
+            url: 'images/pink_blend.jpg',
+            price: 90,
+            tax: 9.66
+            }, {
+            title: 'Pink Pro Blender',
+            description: 'This is like Pink Blender but for professionals.',
+            url: 'images/pink_pro_blend.jpg',
+            price: 100,
+            tax: 9.66
+        }, {
+            title: 'Duo blender',
+            description: 'Two for the price of one.',
+            url: 'images/duo_blend.png',
+            price: 90,
+            tax: 9.66
+        }, {
+            title: 'Duo blender 2',
+            description: 'Two for the price of one, second version.',
+            url: 'images/duo2_blend.jpg',
+            price: 90,
+            tax: 9.66
+        }, {
+            title: 'Pack blender',
+            description: 'Big pack blenders.',
+            url: 'images/pack_blend.jpg',
+            price: 280,
+            tax: 9.66
+        }, {
+            title: 'Blender pieces',
+            description: 'Jack El Destripador´s favourite. Easy to assemble and disassemble.',
+            url: 'images/blend_pieces.jpg',
+            price: 90,
+            tax: 9.66
+        }, {
+            title: 'Green blender',
+            description: 'This is a nice and cheap with a beautiful color blender but green. It´s very good for smoothies.',
+            url: 'images/green_blend.jpg',
+            price: 80,
+            tax: 9.66
+    
+        }]); })
+        .then(function (result) {
+            console.log(result);
+            return mongoose.disconnect();
+        });
     //return user.save().then(function (result) {  //Lo introduce en la base de datos  
-        //return User.find().then(function (result) {   //Así busca todos
-        //return User.findById(mongoose.Types.ObjectId("636bd0acca52534d4536cb9b")).then(function (result) { //Asi por id
-        //return User.find({ email: 'johndoe@example.com'}).then(function (result) { //Así por el resto de att, pueden ser varios
-        //return User.deleteOne({email:'johndoe@example.com'}).then(function (result) { //Así para borrar
-        //return User.findOne({email:'johndoe@example.com'}).then(function (user) { //Ejemplo para encadenar operaciones(otra forma de borrar)
-        //     return user.remove();
-        //   }).then(function () {
-        //     return User.find();
-        //   }).then(function (result) { //hasta aqui esta parte de codigo de encadenar
+    //return User.find().then(function (result) {   //Así busca todos
+    //return User.findById(mongoose.Types.ObjectId("636bd0acca52534d4536cb9b")).then(function (result) { //Asi por id
+    //return User.find({ email: 'johndoe@example.com'}).then(function (result) { //Así por el resto de att, pueden ser varios
+    //return User.deleteOne({email:'johndoe@example.com'}).then(function (result) { //Así para borrar
+    //return User.findOne({email:'johndoe@example.com'}).then(function (user) { //Ejemplo para encadenar operaciones(otra forma de borrar)
+    //     return user.remove();
+    //   }).then(function () {
+    //     return User.find();
+    //   }).then(function (result) { //hasta aqui esta parte de codigo de encadenar
 
     //     return User.findOne({ email: 'johndoe@example.com' }) //así para modificar atributos
     // }).then(function (user) {
