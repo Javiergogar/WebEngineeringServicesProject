@@ -4,70 +4,70 @@ var Product= require('./product');
 //var CartItem = require('./cartItem');
 
 Model = {}
-Model.products = [{
-  _id: 1,
-  title: 'Trio blender',
-  description: 'This is a pack to save some money',
-  url: 'images/trio_blend.jpg',
-  price: 180,
-  tax: 9.66
-}, {
-  _id: 2,
-  title: 'Pink blender',
-  description: 'This is a nice and happy blender. If you use this you will brighten your days',
-  url: 'images/pink_blend.jpg',
-  price: 90,
-  tax: 9.66
-},
-{
-  _id: 3,
-  title: 'Pink Pro Blender',
-  description: 'This is like Pink Blender but for professionals.',
-  url: 'images/pink_pro_blend.jpg',
-  price: 100,
-  tax: 9.66
-},
-{
-  _id: 4,
-  title: 'Duo blender',
-  description: 'Two for the price of one.',
-  url: 'images/duo_blend.png',
-  price: 90,
-  tax: 9.66
-},
-{
-  _id: 5,
-  title: 'Duo blender 2',
-  description: 'Two for the price of one, second version.',
-  url: 'images/duo2_blend.jpg',
-  price: 90,
-  tax: 9.66
-},
-{
-  _id: 6,
-  title: 'Pack blender',
-  description: 'Big pack blenders.',
-  url: 'images/pack_blend.jpg',
-  price: 280,
-  tax: 9.66
-},
-{
-  _id: 7,
-  title: 'Blender pieces',
-  description: 'Jack El Destripador´s favourite. Easy to assemble and disassemble.',
-  url: 'images/blend_pieces.jpg',
-  price: 90,
-  tax: 9.66
-},
-{
-  _id: 8,
-  title: 'Green blender',
-  description: 'This is a nice and cheap with a beautiful color blender but green. It´s very good for smoothies.',
-  url: 'images/green_blend.jpg',
-  price: 80,
-  tax: 9.66
-}
-];
+// Model.products = [{
+//   _id: 1,
+//   title: 'Trio blender',
+//   description: 'This is a pack to save some money',
+//   url: 'images/trio_blend.jpg',
+//   price: 180,
+//   tax: 9.66
+// }, {
+//   _id: 2,
+//   title: 'Pink blender',
+//   description: 'This is a nice and happy blender. If you use this you will brighten your days',
+//   url: 'images/pink_blend.jpg',
+//   price: 90,
+//   tax: 9.66
+// },
+// {
+//   _id: 3,
+//   title: 'Pink Pro Blender',
+//   description: 'This is like Pink Blender but for professionals.',
+//   url: 'images/pink_pro_blend.jpg',
+//   price: 100,
+//   tax: 9.66
+// },
+// {
+//   _id: 4,
+//   title: 'Duo blender',
+//   description: 'Two for the price of one.',
+//   url: 'images/duo_blend.png',
+//   price: 90,
+//   tax: 9.66
+// },
+// {
+//   _id: 5,
+//   title: 'Duo blender 2',
+//   description: 'Two for the price of one, second version.',
+//   url: 'images/duo2_blend.jpg',
+//   price: 90,
+//   tax: 9.66
+// },
+// {
+//   _id: 6,
+//   title: 'Pack blender',
+//   description: 'Big pack blenders.',
+//   url: 'images/pack_blend.jpg',
+//   price: 280,
+//   tax: 9.66
+// },
+// {
+//   _id: 7,
+//   title: 'Blender pieces',
+//   description: 'Jack El Destripador´s favourite. Easy to assemble and disassemble.',
+//   url: 'images/blend_pieces.jpg',
+//   price: 90,
+//   tax: 9.66
+// },
+// {
+//   _id: 8,
+//   title: 'Green blender',
+//   description: 'This is a nice and cheap with a beautiful color blender but green. It´s very good for smoothies.',
+//   url: 'images/green_blend.jpg',
+//   price: 80,
+//   tax: 9.66
+// }
+// ];
 Model.user = null;
 // Model.users = [{
 //   _id: 1,
@@ -88,47 +88,47 @@ Model.user = null;
 
 // }];
 
-Model.orders = [{
-  number: 1266415938008,
-  date: new Date(1995, 4, 1),
-  address: 'calle13',
-  cardHolder: 'Test',
-  cardNumber: 'numero ejemplo',
-  orderItems: [{
-    qty: 1,
-    price: 24,
-    tax: 3,
-    product: Model.products[0]
-  }, {
-    qty: 1,
-    price: 24,
-    tax: 3,
-    product: Model.products[1]
-  }]
-}, {
-  number: 1266415938009,
-  date: new Date(1997, 4, 1),
-  address: 'calle13',
-  cardHolder: 'Test',
-  cardNumber: 'numero ejemplo',
-  orderItems: [{
-    qty: 1,
-    price: 24,
-    tax: 3,
-    product: Model.products[0]
-  }, {
-    qty: 2,
-    price: 24,
-    tax: 3,
-    product: Model.products[1]
-  }]
-}
-]
+// Model.orders = [{
+//   number: 1266415938008,
+//   date: new Date(1995, 4, 1),
+//   address: 'calle13',
+//   cardHolder: 'Test',
+//   cardNumber: 'numero ejemplo',
+//   orderItems: [{
+//     qty: 1,
+//     price: 24,
+//     tax: 3,
+//     product: Model.products[0]
+//   }, {
+//     qty: 1,
+//     price: 24,
+//     tax: 3,
+//     product: Model.products[1]
+//   }]
+// }, {
+//   number: 1266415938009,
+//   date: new Date(1997, 4, 1),
+//   address: 'calle13',
+//   cardHolder: 'Test',
+//   cardNumber: 'numero ejemplo',
+//   orderItems: [{
+//     qty: 1,
+//     price: 24,
+//     tax: 3,
+//     product: Model.products[0]
+//   }, {
+//     qty: 2,
+//     price: 24,
+//     tax: 3,
+//     product: Model.products[1]
+//   }]
+// }
+// ]
 
 
 
 // Model._userCount = Model.users.length;
-Model._orderCount = Model.orders.length;
+//Model._orderCount = Model.orders.length;
 
 Model.signin = function (email, password) {
   
