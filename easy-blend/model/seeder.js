@@ -38,7 +38,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(
     var user = new User({
         email: 'test@gmail.com', password: 'test', name: 'Test', surname: 'test', birth:
             Date.UTC(1990, 0, 1), address: 'calle13',
-        cartItems: [{ qty: 3, product: null }, { qty: 1, product: null }]
+        cartItems: []
     });
 
     return User.deleteMany()

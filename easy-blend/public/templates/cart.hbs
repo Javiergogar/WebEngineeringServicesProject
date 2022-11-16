@@ -6,12 +6,14 @@
 
   function removeOne_clicked(event,productId) {
     Model.removeItem(productId,false);
+    navigateTo(event, '/cart');
     
     
   }
 
   function removeAll_clicked(event,productId) {
     Model.removeItem(productId,true);
+    navigateTo(event, '/cart');
     
     
   }
@@ -52,8 +54,8 @@
                 Remove
               </button>
               <ul class="dropdown-menu">
-                <li><a onclick= "removeOne_clicked(event,{{this.product._id}})" class="dropdown-item" href="#">One</a></li>
-                <li><a onclick= "removeAll_clicked(event,{{this.product._id}})" class="dropdown-item" href="#">All</a></li>
+                <li><a onclick= "removeOne_clicked(event,'{{this.product._id}}')" class="dropdown-item" href="#">One</a></li>
+                <li><a onclick= "removeAll_clicked(event,'{{this.product._id}}')" class="dropdown-item" href="#">All</a></li>
               </ul>
             </td>
           </tr>
