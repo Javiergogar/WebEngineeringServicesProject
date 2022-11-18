@@ -5,6 +5,7 @@ mongoose.Promise = global.Promise;
 //Schemas
 var User = require('./user');
 var Product = require('./product');
+var Order = require('./order');
 
 var uri = 'mongodb://127.0.0.1/easy-blend'; //hasta game-shop es el server, lo de despues es el nombre de la bbdd
 var db = mongoose.connection;
@@ -26,15 +27,7 @@ db.on('error', function (err) {
 });
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(function () {
-    // var user = new User({
-    //     email: 'johndoe@example.com',
-    //     password: '1234',
-    //     name: 'John',
-    //     surname: 'Doe',
-    //     birth: Date.UTC(1990, 0, 1),
-    //     address: '123 Main St, 12345 New York, United States'
-    // });
-    //var cartItems = [new CartItem({ qty: 3, product: null }), new CartItem({ qty: 1, product: null })];
+
     var user = new User({
         email: 'test@gmail.com', password: 'test', name: 'Test', surname: 'test', birth:
             Date.UTC(1990, 0, 1), address: 'calle13',
@@ -43,6 +36,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(
 
     return User.deleteMany()
         .then(function () { return User.deleteMany(); })
+        .then(function () { return Order.deleteMany(); })
         .then(function () { return user.save(); })
         .then(function () { return Product.deleteMany(); })
         .then(function () { return Product.insertMany([{

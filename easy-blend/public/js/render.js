@@ -29,7 +29,7 @@ function route() {
   console.log('ROUTING ', path);
   if (matches = path.match(/^\/$/)) {
     var productsP = Model.getProducts().done(function (products) {
-      console.log(products)
+      //console.log(products)
       context.products = products;
     }).fail(function () {
       console.error('Cannot retrieve products');
@@ -43,6 +43,7 @@ function route() {
     }).fail(function () {
       console.error('Cannot retrieve orders');
       $.when(cartQtyP,orderP).always(function () {
+        console.log(context.order)
         render('/templates/not-found.hbs', '#content', context);
       });
     }); 
@@ -129,8 +130,8 @@ $(function () {
     return new Handlebars.SafeString(result);
   });
   Handlebars.registerHelper('subtotalOrder', function (orderItems) {
-    var result = 0
-
+    var result = 0;
+    console.log(orderItems);
     for (i = 0; i < orderItems.length; i++) {
       result = result + (orderItems[i].qty * orderItems[i].price)
     }

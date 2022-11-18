@@ -10,7 +10,8 @@ var schema = mongoose.Schema({
   cartItems: { type: [{
     qty: { type: Number, required: true },
     product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' }
-  }]}
+  }]},
+  orders:{type:[{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}]}
 });
 
 module.exports = mongoose.model('User', schema);
