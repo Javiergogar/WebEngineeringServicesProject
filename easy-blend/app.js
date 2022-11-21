@@ -69,10 +69,10 @@ app.get('/api/cart/qty', function (req, res, next) {
     return res.status(401).json({ message: 'User has not signed in' });
   }
   return model.getCartQty(uid).then(function (qty) {
-    if (qty > 0) {
+    //if (qty > 0) {
       return res.json(qty);
-    }
-    return res.status(500).json({ message: 'Cannot retrieve user cart quantity' });
+    //}
+    //return res.status(500).json({ message: 'Cannot retrieve user cart quantity' });
   });
 });
 
