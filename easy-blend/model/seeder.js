@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var bcryptjs = require('bcryptjs');
 mongoose.Promise = global.Promise;
 
 
@@ -29,7 +30,7 @@ db.on('error', function (err) {
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(function () {
 
     var user = new User({
-        email: 'test@gmail.com', password: 'test', name: 'Test', surname: 'test', birth:
+        email: 'test@gmail.com', password: bcryptjs.hashSync('1234', bcryptjs.genSaltSync()), name: 'Test', surname: 'test', birth:
             Date.UTC(1990, 0, 1), address: 'calle13',
         cartItems: []
     });
